@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}
+    Eshop - {{ category|capfirst }}
+{% endblock %}
+{% block body %}
+    <h4>Category: {{ category|capfirst }}</h4>
+    {% include 'partial/view_products.html' %}
+{% endblock %}
