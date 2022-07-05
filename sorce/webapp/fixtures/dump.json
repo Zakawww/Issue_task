@@ -1,0 +1,64 @@
+[
+{
+  "model": "webapp.product",
+  "pk": 1,
+  "fields": {
+    "name": "ASUS VIVOBOOK 15",
+    "description": "ASUS VIVOBOOK 15 X513EA",
+    "category": "notebooks",
+    "count": 13,
+    "price": "14400.00"
+  }
+},
+{
+  "model": "webapp.product",
+  "pk": 2,
+  "fields": {
+    "name": "DELL OPTIPLEX",
+    "description": "DELL OPTIPLEX 3090 MFF INTEL CORE I5-10500T (2.30-3.80GHZ), 8GB DDR4, 256GB SDD, INTEL UHD GRAPHICS 630, LAN, 5XUSB, 2XDISPLAYPORT, WIN 11 PRO, BLACK\r\n\r\n DELL OptiPlex 3090 MFF Intel Core i5-10500T (2.30-3.80GHz), 8GB DDR4, 256GB SDD, Intel UHD Graphics 630, LAN, 5xUSB, 2xDisplayPort, Win 11 ProBlack",
+    "category": "computers",
+    "count": 11,
+    "price": "12000.00"
+  }
+},
+{
+  "model": "webapp.product",
+  "pk": 3,
+  "fields": {
+    "name": "AOC 18,5",
+    "description": "AOC 18,5\" E970SWN, LED, BLACK 1366 x 768 16:9 HD; 100000000:1; 250cd/m2; 5ms,VGA",
+    "category": "monitors",
+    "count": 5,
+    "price": "10031.00"
+  }
+},
+{
+  "model": "webapp.product",
+  "pk": 4,
+  "fields": {
+    "name": "VGA Card PALIT GeForce RTX3090",
+    "description": "VGA Card PALIT GeForce RTX3090 GAMEROCK 24G GDDR6X 384bit,HDMI+3DP (NED3090T19SB-1021G) NON-LHR",
+    "category": "other",
+    "count": 3,
+    "price": "24080.00"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$320000$nfGyPAfhNrC1DDFMWlPxrU$44W3zgBCfkdWgXqAbmg7DYlvX4SeW+3Ps8dKh18X3Uo=",
+    "last_login": "2022-07-05T04:28:14.076Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2022-07-05T04:11:32.572Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
