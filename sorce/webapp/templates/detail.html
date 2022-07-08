@@ -9,10 +9,11 @@
                 <h5 class="mb-1">{{ issues.summary }}</h5>
             </div>
             <hr>
-            <p class="mb-1">{{ issues.description }}</p>
+                <p class="mb-1">{{ issues.description }}</p>
             <hr>
-            <p>Type: {{ issues.type }}</p>
-            <p>Status: {{ issues.status }}</p>
+                <small>Type: {{ issues.type }}</small><br>
+                <small>Status: {{ issues.status }}</small><br>
+                <small>Date: {{ issues.updated_date }}</small>
         </span>
     </div>
     <a href="{% url 'index' %}" class="btn btn-success d-block mt-3 mx-auto w-25">Return to main page</a>

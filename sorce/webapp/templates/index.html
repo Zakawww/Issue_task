@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
-    Product
+    Issues
 {% endblock %}
 {% block body %}
     <form action="{% url "search" %}">
@@ -8,8 +8,10 @@
             {% for field in form %}
                 <div class="form-group mb-2 d-inline-block">
                     <label for="name" class="sr-only">{{ field.label }}</label>
+                    {{ field }}
                 </div>
             {% endfor %}
+
             <button type="submit" class="btn btn-primary mb-1">Search</button>
         </form>
     </form>
