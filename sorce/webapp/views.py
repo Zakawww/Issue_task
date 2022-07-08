@@ -16,7 +16,6 @@ from .models import Issue
 def index(request):
     form = SearchForm()
     issues = Issue.objects.order_by('summary')
-    # categories = get_categories()
     return render(request, 'index.html', {'issues': issues, 'form': form})
 
 
@@ -57,8 +56,8 @@ def update(request, pk):
         form = IssueForm(data={
             'summary': issues.summary,
             'description': issues.description,
-            'status': issues.category,
-            'type': issues.count
+            'status': issues.status,
+            'type': issues.type
         })
         return render(request, 'update.html', context={'form': form, 'issues': issues})
 
@@ -83,7 +82,6 @@ def update(request, pk):
 
 
 def search(request):
-    # categories = get_categories()
     form = SearchForm(data=request.GET)
     if form.is_valid():
         summary = form.cleaned_data['summary']
