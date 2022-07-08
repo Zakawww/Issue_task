@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Product, category_choices
+# from .models import Product, category_choices
 from .forms import ProductForm, SearchForm
+from .models import Issue
 
 
 def get_categories():
-    products = Product.objects.exclude(count=0)
+    products = Issue.objects.exclude(count=0)
     categories = []
     for product in products:
         category = str(product).split('-')
@@ -15,18 +16,18 @@ def get_categories():
 
 def index(request):
     form = SearchForm()
-    products = Product.objects.order_by('category', 'name').exclude(count=0)
+    products = Issue.objects.order_by('category', 'name').exclude(count=0)
     categories = get_categories()
     return render(request, 'index.html', {'products': products, 'categories': categories, 'form': form})
 
 
 def detail(request, pk):
-    product = get_object_or_404(Product, pk=pk)
+    product = get_object_or_404(Issue, pk=pk)
     return render(request, 'detail.html', {'product': product})
 
 
 def delete(request, pk):
-    product = get_object_or_404(Product, pk=pk)
+    product = get_object_or_404(Issue, pk=pk)
     product.delete()
     return redirect('index')
 
@@ -34,12 +35,12 @@ def delete(request, pk):
 def create(request):
     if request.method == 'GET':
         form = ProductForm()
-        return render(request, 'create.html', {'statuses': category_choices, 'form': form})
+        return render(request, 'create.html', {'statuses': 'status', 'form': form})
 
     elif request.method == 'POST':
         form = ProductForm(data=request.POST)
         if form.is_valid():
-            Product.objects.create(
+            Issue.objects.create(
                 name=form.cleaned_data['name'],
                 description=form.cleaned_data['description'],
                 category=form.cleaned_data['category'],
@@ -52,7 +53,7 @@ def create(request):
 
 
 def update(request, pk):
-    product = get_object_or_404(Product, pk=pk)
+    product = get_object_or_404(Issue, pk=pk)
 
     if request.method == 'GET':
         form = ProductForm(data={
@@ -79,7 +80,7 @@ def update(request, pk):
 
 
 def filter_by_category(request, category):
-    products = Product.objects.filter(category=category).exclude(count=0).order_by('name')
+    products = Issue.objects.filter(category=category).exclude(count=0).order_by('name')
     categories = get_categories()
     return render(request, 'filter_category.html',
                   {'products': products, 'categories': categories, 'category': category})
@@ -90,7 +91,7 @@ def search(request):
     form = SearchForm(data=request.GET)
     if form.is_valid():
         name = form.cleaned_data['name']
-        products = Product.objects.filter(name__contains=name).exclude(count=0)
+        products = Issue.objects.filter(name__contains=name).exclude(count=0)
         return render(request, 'index.html', {'products': products, 'categories': categories, 'form': form})
     else:
         return redirect('index')

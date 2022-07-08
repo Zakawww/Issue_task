@@ -1,14 +1,14 @@
 from django.contrib import admin
 
-from .models import Product
+from webapp.models import Issue, Status, Type
 
 
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'description', 'category', 'count', 'price']
-    list_filter = ['category']
-    search_fields = ['name', 'category']
-    fields = ['name', 'description', 'category', 'count', 'price']
-    list_display_links = ['id', 'name', 'category']
+class IssueAdmin(admin.ModelAdmin):
+    list_display = ['summary', 'status', 'type', 'create_date', 'updated_date']
+    list_filter = ['status', 'type']
+    search_fields = ['summary']
 
 
-admin.site.register(Product, ProductAdmin)
+admin.site.register(Status)
+admin.site.register(Type)
+admin.site.register(Issue, IssueAdmin)
