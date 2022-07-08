@@ -1,96 +1,95 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Product, category_choices
-from .forms import ProductForm, SearchForm
+from django.views.generic import TemplateView, View
+
+from .forms import SearchForm, IssueForm
+from .models import Issue
 
 
-def get_categories():
-    products = Product.objects.exclude(count=0)
-    categories = []
-    for product in products:
-        category = str(product).split('-')
-        if category[1].strip() not in categories:
-            categories.append(category[1].strip())
-    return categories
+class IndexView(TemplateView):
+    template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = SearchForm()
+        issues = Issue.objects.all()
+        context['issues'] = issues
+        context['form'] = form
+        return context
 
 
-def index(request):
-    form = SearchForm()
-    products = Product.objects.order_by('category', 'name').exclude(count=0)
-    categories = get_categories()
-    return render(request, 'index.html', {'products': products, 'categories': categories, 'form': form})
+class DetailView(TemplateView):
+    template_name = 'detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = kwargs.get("pk")
+        issues = get_object_or_404(Issue, pk=pk)
+        context['issues'] = issues
+        return context
 
 
-def detail(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    return render(request, 'detail.html', {'product': product})
+class DeleteView(View):
+    def get(self, request, pk):
+        issue = get_object_or_404(Issue, pk=pk)
+        return render(request, 'index.html', {'issue': issue})
+
+    def post(self, request, pk):
+        issue = get_object_or_404(Issue, pk=pk)
+        issue.delete()
+        return redirect('index')
 
 
-def delete(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    product.delete()
-    return redirect('index')
+class CreateView(View):
+    def get(self, request, *args, **kwargs):
+        form = IssueForm()
+        return render(request, 'create.html', {'form': form})
 
-
-def create(request):
-    if request.method == 'GET':
-        form = ProductForm()
-        return render(request, 'create.html', {'statuses': category_choices, 'form': form})
-
-    elif request.method == 'POST':
-        form = ProductForm(data=request.POST)
+    def post(self, request, *args, **kwargs):
+        form = IssueForm(data=request.POST)
         if form.is_valid():
-            Product.objects.create(
-                name=form.cleaned_data['name'],
+            Issue.objects.create(
+                summary=form.cleaned_data['summary'],
                 description=form.cleaned_data['description'],
-                category=form.cleaned_data['category'],
-                count=form.cleaned_data['count'],
-                price=form.cleaned_data['price']
+                status=form.cleaned_data['status'],
+                type=form.cleaned_data['type']
             )
             return redirect('index')
         else:
-            return render(request, 'create.html', context={'form': form})
+            return render(request, 'create.html', {'form': form})
 
 
-def update(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-
-    if request.method == 'GET':
-        form = ProductForm(data={
-            'name': product.name,
-            'description': product.description,
-            'category': product.category,
-            'count': product.count,
-            'price': product.price
+class UpdateView(View):
+    def get(self, request, *args, **kwargs):
+        issue_pk = kwargs.get('pk')
+        issue = get_object_or_404(Issue, pk=issue_pk)
+        form = IssueForm(data={
+            'summary': issue.summary,
+            'description': issue.description,
+            'status': issue.status.id,
+            'type': issue.type.id
         })
-        return render(request, 'update.html', context={'form': form, 'product': product})
+        return render(request, 'update.html', {'form': form, 'issue': issue})
 
-    if request.method == 'POST':
-        form = ProductForm(data=request.POST)
+    def post(self, request, *args, **kwargs):
+        form = IssueForm(data=request.POST)
+        issue_pk = kwargs.get('pk')
+        issue = get_object_or_404(Issue, pk=issue_pk)
         if form.is_valid():
-            product.name = form.cleaned_data['name']
-            product.description = form.cleaned_data['description']
-            product.category = form.cleaned_data['category']
-            product.count = form.cleaned_data['count']
-            product.price = form.cleaned_data['price']
-            product.save()
+            issue.summary = form.cleaned_data['summary']
+            issue.description = form.cleaned_data['description']
+            issue.status = form.cleaned_data['status']
+            issue.type = form.cleaned_data['type']
+            issue.save()
             return redirect('index')
         else:
-            return render(request, 'update.html', context={'form': form})
-
-
-def filter_by_category(request, category):
-    products = Product.objects.filter(category=category).exclude(count=0).order_by('name')
-    categories = get_categories()
-    return render(request, 'filter_category.html',
-                  {'products': products, 'categories': categories, 'category': category})
+            return render(request, 'update.html', {'form': form, 'issue': issue})
 
 
 def search(request):
-    categories = get_categories()
     form = SearchForm(data=request.GET)
     if form.is_valid():
-        name = form.cleaned_data['name']
-        products = Product.objects.filter(name__contains=name).exclude(count=0)
-        return render(request, 'index.html', {'products': products, 'categories': categories, 'form': form})
+        summary = form.cleaned_data['summary']
+        issues = Issue.objects.filter(summary__contains=summary)
+        return render(request, 'index.html', {'issues': issues, 'form': form})
     else:
         return redirect('index')

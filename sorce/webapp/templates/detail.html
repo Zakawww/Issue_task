@@ -6,13 +6,14 @@
     <div class="list-group col-8 offset-2 mt-3">
         <span class="list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{ product.name }}</h5>
-                <small class="text-success">{{ product.price }} som</small>
+                <h5 class="mb-1">{{ issues.summary }}</h5>
             </div>
-            <p class="mb-1">{{ product.description }}</p>
             <hr>
-            <small>Category: <a href="{% url 'category' product.category %}">{{ product.get_category_display }}</a></small> <br>
-            <small>Balance of products: {{ product.count }}</small>
+                <p class="mb-1">{{ issues.description }}</p>
+            <hr>
+                <small>Type: {{ issues.type }}</small><br>
+                <small>Status: {{ issues.status }}</small><br>
+                <small>Date: {{ issues.updated_date }}</small>
         </span>
     </div>
     <a href="{% url 'index' %}" class="btn btn-success d-block mt-3 mx-auto w-25">Return to main page</a>

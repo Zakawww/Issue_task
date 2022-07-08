@@ -1,46 +1,152 @@
 [
 {
-  "model": "webapp.product",
+  "model": "webapp.basemodel",
+  "pk": 5,
+  "fields": {
+    "create_date": "2022-07-08T07:29:25.804Z",
+    "updated_date": "2022-07-08T10:20:15.243Z"
+  }
+},
+{
+  "model": "webapp.basemodel",
+  "pk": 12,
+  "fields": {
+    "create_date": "2022-07-08T10:18:23.032Z",
+    "updated_date": "2022-07-08T10:20:41.304Z"
+  }
+},
+{
+  "model": "webapp.basemodel",
+  "pk": 13,
+  "fields": {
+    "create_date": "2022-07-08T10:18:47.606Z",
+    "updated_date": "2022-07-08T10:21:06.937Z"
+  }
+},
+{
+  "model": "webapp.basemodel",
+  "pk": 14,
+  "fields": {
+    "create_date": "2022-07-08T10:19:04.304Z",
+    "updated_date": "2022-07-08T10:21:23.000Z"
+  }
+},
+{
+  "model": "webapp.basemodel",
+  "pk": 15,
+  "fields": {
+    "create_date": "2022-07-08T10:19:34.833Z",
+    "updated_date": "2022-07-08T10:19:34.833Z"
+  }
+},
+{
+  "model": "webapp.basemodel",
+  "pk": 16,
+  "fields": {
+    "create_date": "2022-07-08T10:19:52.169Z",
+    "updated_date": "2022-07-08T10:19:52.169Z"
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 5,
+  "fields": {
+    "summary": "Prioritize your tasks effectively",
+    "description": "How you prioritize your tasks for the week is extremely important. Balancing timelines with priority is a tricky skill to manage. When you have long-term projects with farther out due dates, you can break these projects up into smaller pieces and complete a portion of the task every day until the due date. This can help prevent you from procrastinating and having to scramble at the last minute to get bigger projects done. \r\n\r\nIf you use a work management tool, try adding a priority label to each task. Not only will this help you keep your priorities in line, but it also shows your team members what you’re focusing on for the day. If things change and you have to shift priorities, you can easily relabel your tasks accordingly.",
+    "status": 2,
+    "type": 3
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 12,
+  "fields": {
+    "summary": "Dedicate time every week for task organization",
+    "description": "A weekly work plan works best when you use it consistently as a weekly planner. Carve out some time in your schedule every week to stop and reflect on the tasks you need to complete for the upcoming week. \r\n\r\nSome people spend some time on Friday afternoon organizing their tasks, while others use Monday morning as their weekly planning time. Both days have their benefits. Compiling your tasks on Friday allows you to come in on Monday with tasks clearly organized so you can hit the ground running. This is a good strategy for people who have trouble disconnecting from work on the weekends, because they’ll have clear insight into what their day looks like on Monday before heading into the weekend. \r\n\r\nOrganizing your weekly tasks on Monday gives you a clear overview of what you're going to work on during the week. This method is good for team members who depend on others for their tasks, such as a sales team or a customer success team. If you’re more likely to get correspondence over the weekend, creating your weekly work plan on a Monday allows you to prioritize the work that came in while you were out.",
+    "status": 2,
+    "type": 1
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 13,
+  "fields": {
+    "summary": "Balance your weekly workload",
+    "description": "Some tasks may require more mental capacity than others. For example, doing big-picture planning can take more mental energy than answering a quick email. If you have a meeting-heavy work day, try to balance it out by putting tasks that require less mental energy on those days. Balancing your workload in this way can help prevent you from getting mentally exhausted too early in the work week. This can also prevent you from procrastinating too much and leaving most of your work until the end of the week.",
+    "status": 1,
+    "type": 1
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 14,
+  "fields": {
+    "summary": "Plan breaks throughout your work day",
+    "description": "When you're working through your task list, don't forget to take some time out of your day for breaks. Use the weekly work plan method in addition to another productivity method like the Pomodoro method or time blocking method. Regularly building in breaks throughout the day is important. Remember, your brain is a muscle and should be treated as such.",
+    "status": 1,
+    "type": 1
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 15,
+  "fields": {
+    "summary": "Track your to-dos in one place",
+    "description": "The most common way to start your weekly work plan is to put everything down in an old-fashioned to-do list. Digital to-do lists work best because they make it easy to sort and prioritize work—plus they’re impossible to lose. With a tool like Asana, you can also attach contextual information to tasks so you have the information you need without it cluttering up your list. The most important part of this step is that everything you need is in one space so that it becomes your source of truth for the week. If you’re unsure of what needs to happen next, you can just go back to your to-dos.\r\n\r\nIf you have a hard time tracking all of your tasks, try using the Getting Things Done (GTD) method. This technique focuses on organizing all your thoughts in one place, so you can offload the information in your brain instead of trying to mentally juggle everything.",
+    "status": 2,
+    "type": 2
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 16,
+  "fields": {
+    "summary": "Assign deadlines for the tasks on your list",
+    "description": "ry action item on your to-do list should have a corresponding due date. This is an extremely important step for weekly work plans, as due dates will help you dictate when you should be working on each task. \r\n\r\nIf you know you need a task completed by a certain day, figure out approximately how long that individual task will take you to complete. Take that estimated time, and work backwards from the due date. This is at minimum when you should start working on that task. \r\n\r\nFor example, a manager might want next month’s social media content calendar by Friday morning. The calendar usually takes about three days to complete, so you would start working on this task at least by Tuesday during your work week.",
+    "status": 3,
+    "type": 3
+  }
+},
+{
+  "model": "webapp.status",
   "pk": 1,
   "fields": {
-    "name": "ASUS VIVOBOOK 15",
-    "description": "ASUS VIVOBOOK 15 X513EA",
-    "category": "notebooks",
-    "count": 13,
-    "price": "14400.00"
+    "name": "New"
   }
 },
 {
-  "model": "webapp.product",
+  "model": "webapp.status",
   "pk": 2,
   "fields": {
-    "name": "DELL OPTIPLEX",
-    "description": "DELL OPTIPLEX 3090 MFF INTEL CORE I5-10500T (2.30-3.80GHZ), 8GB DDR4, 256GB SDD, INTEL UHD GRAPHICS 630, LAN, 5XUSB, 2XDISPLAYPORT, WIN 11 PRO, BLACK\r\n\r\n DELL OptiPlex 3090 MFF Intel Core i5-10500T (2.30-3.80GHz), 8GB DDR4, 256GB SDD, Intel UHD Graphics 630, LAN, 5xUSB, 2xDisplayPort, Win 11 ProBlack",
-    "category": "computers",
-    "count": 11,
-    "price": "12000.00"
+    "name": "In Progress"
   }
 },
 {
-  "model": "webapp.product",
+  "model": "webapp.status",
   "pk": 3,
   "fields": {
-    "name": "AOC 18,5",
-    "description": "AOC 18,5\" E970SWN, LED, BLACK 1366 x 768 16:9 HD; 100000000:1; 250cd/m2; 5ms,VGA",
-    "category": "monitors",
-    "count": 5,
-    "price": "10031.00"
+    "name": "Done"
   }
 },
 {
-  "model": "webapp.product",
-  "pk": 4,
+  "model": "webapp.type",
+  "pk": 1,
   "fields": {
-    "name": "VGA Card PALIT GeForce RTX3090",
-    "description": "VGA Card PALIT GeForce RTX3090 GAMEROCK 24G GDDR6X 384bit,HDMI+3DP (NED3090T19SB-1021G) NON-LHR",
-    "category": "other",
-    "count": 3,
-    "price": "24080.00"
+    "name": "Task"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 2,
+  "fields": {
+    "name": "Bug"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 3,
+  "fields": {
+    "name": "Enhancement"
   }
 },
 {
@@ -48,7 +154,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$320000$nfGyPAfhNrC1DDFMWlPxrU$44W3zgBCfkdWgXqAbmg7DYlvX4SeW+3Ps8dKh18X3Uo=",
-    "last_login": "2022-07-05T04:28:14.076Z",
+    "last_login": "2022-07-08T04:11:22.705Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
