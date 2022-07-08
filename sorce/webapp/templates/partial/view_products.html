@@ -1,11 +1,11 @@
 
 <table class="table fs-4">
     <thead class="table-dark">
-    <th scope="col">summary</th>
-    <th scope="col">description</th>
-    <th scope="col">status</th>
-    <th scope="col">type</th>
-    <th scope="col">functions</th>
+    <th scope="col">Summary</th>
+    <th scope="col">Date</th>
+    <th scope="col">Status</th>
+    <th scope="col">Type</th>
+    <th scope="col">Options</th>
     </thead>
     <tbody>
     {% for issue in issues %}
@@ -13,7 +13,7 @@
             <th class="align-middle">
                 <a href="{% url 'detail' issue.pk %}" class="text-dark">{{ issue.summary }}</a>
             </th>
-            <td class="align-middle">{{ issue.get_category_display  }}
+            <td class="align-middle">{{ issue.updated_date  }}
             </td>
             <td class="align-middle">{{ issue.status }}</td>
             <td class="align-middle">{{ issue.type }}</td>
