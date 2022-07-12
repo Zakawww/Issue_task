@@ -7,7 +7,8 @@ class IssueForm(forms.Form):
     summary = forms.CharField(max_length=100, required=True, label='summary')
     description = forms.CharField(max_length=2000, required=False, widget=widgets.Textarea, label='description')
     status = forms.ModelChoiceField(queryset=Status.objects.all(), empty_label=None, required=True, label='status')
-    type = forms.ModelChoiceField(queryset=Type.objects.all(), empty_label=None, required=True, label='type')
+    # type = forms.ModelChoiceField(queryset=Type.objects.all(), empty_label=None, required=True, label='type')
+    type = forms.ModelMultipleChoiceField(queryset=Type.objects.all(), required=False, label='type')
 
 
 class SearchForm(forms.Form):

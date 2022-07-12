@@ -11,7 +11,8 @@
             <hr>
                 <p class="mb-1">{{ issues.description }}</p>
             <hr>
-                <small>Type: {{ issues.type }}</small><br>
+{#                <small>Type: {{ issues.type }}</small><br>#}
+                <p>Type: {% for type in issues.types.all %}{{ type.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
                 <small>Status: {{ issues.status }}</small><br>
                 <small>Date: {{ issues.updated_date }}</small>
         </span>

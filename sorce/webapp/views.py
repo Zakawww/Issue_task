@@ -47,12 +47,13 @@ class CreateView(View):
     def post(self, request, *args, **kwargs):
         form = IssueForm(data=request.POST)
         if form.is_valid():
-            Issue.objects.create(
+            type = form.cleaned_data.pop['type']
+            new_issue = Issue.objects.create(
                 summary=form.cleaned_data['summary'],
                 description=form.cleaned_data['description'],
                 status=form.cleaned_data['status'],
-                type=form.cleaned_data['type']
             )
+            new_issue.type.set(type)
             return redirect('index')
         else:
             return render(request, 'create.html', {'form': form})
@@ -66,7 +67,7 @@ class UpdateView(View):
             'summary': issue.summary,
             'description': issue.description,
             'status': issue.status.id,
-            'type': issue.type.id
+            'type': issue.type.all()
         })
         return render(request, 'update.html', {'form': form, 'issue': issue})
 
@@ -78,7 +79,7 @@ class UpdateView(View):
             issue.summary = form.cleaned_data['summary']
             issue.description = form.cleaned_data['description']
             issue.status = form.cleaned_data['status']
-            issue.type = form.cleaned_data['type']
+            issue.type.set(form.cleaned_data.pop('type'))
             issue.save()
             return redirect('index')
         else:
