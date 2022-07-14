@@ -1,15 +1,39 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.forms import widgets
-from webapp.models import Status, Type
+from webapp.models import Issue
 
 
-class IssueForm(forms.Form):
-    summary = forms.CharField(max_length=100, required=True, label='summary')
-    description = forms.CharField(max_length=2000, required=False, widget=widgets.Textarea, label='description')
-    status = forms.ModelChoiceField(queryset=Status.objects.all(), empty_label=None, required=True, label='status')
-    # type = forms.ModelChoiceField(queryset=Type.objects.all(), empty_label=None, required=True, label='type')
-    type = forms.ModelMultipleChoiceField(queryset=Type.objects.all(), required=False, label='type')
+
+
+
+class IssueForm(forms.ModelForm):
+    # summary = forms.CharField(max_length=60, required=True, label='summary', validators=[validate_title])
+
+    class Meta:
+        model = Issue
+        fields = ['summary', 'description', 'status', 'type']
+        widgets = {"type": widgets.CheckboxSelectMultiple,
+                   "description": widgets.Textarea(attrs={"placeholder": "Введите контент"})
+                   }
+
+    # def clean_title(self):
+    #     summary = self.cleaned_data.get("summary")
+    #     if len(summary) > 7:
+    #         raise ValidationError("This field should be at least %(length)d symbols long!", code="too_short",
+    #                               params={"length": 7})
+    #     return summary
+
+    # def clean(self):
+    #     if len(self.cleaned_data.get("summary")) > 7:
+    #         raise ValidationError("Название больше 7 символов")
+    #     return super().clean()
+
+    # def clean(self):
+    #     if self.cleaned_data.get("summary") == self.cleaned_data.get("description"):
+    #         raise ValidationError("Название и описание не могут совпадать")
+    #     return super().clean()
 
 
 class SearchForm(forms.Form):
-    summary = forms.CharField(max_length=60, required=False, label='summary')
+    summary = forms.CharField(max_length=30, required=False, label='summary')

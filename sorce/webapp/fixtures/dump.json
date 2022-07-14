@@ -1,117 +1,80 @@
 [
 {
-  "model": "webapp.basemodel",
-  "pk": 5,
+  "model": "webapp.issue",
+  "pk": 3,
   "fields": {
-    "create_date": "2022-07-08T07:29:25.804Z",
-    "updated_date": "2022-07-08T10:20:15.243Z"
+    "create_date": "2022-07-14T21:53:36.503Z",
+    "updated_date": "2022-07-14T21:53:36.503Z",
+    "summary": "Test_1",
+    "description": "How you prioritize your tasks for the week is extremely important. Balancing timelines with",
+    "status": 1,
+    "type": [
+      1
+    ]
   }
 },
 {
-  "model": "webapp.basemodel",
-  "pk": 12,
+  "model": "webapp.issue",
+  "pk": 4,
   "fields": {
-    "create_date": "2022-07-08T10:18:23.032Z",
-    "updated_date": "2022-07-08T10:20:41.304Z"
-  }
-},
-{
-  "model": "webapp.basemodel",
-  "pk": 13,
-  "fields": {
-    "create_date": "2022-07-08T10:18:47.606Z",
-    "updated_date": "2022-07-08T10:21:06.937Z"
-  }
-},
-{
-  "model": "webapp.basemodel",
-  "pk": 14,
-  "fields": {
-    "create_date": "2022-07-08T10:19:04.304Z",
-    "updated_date": "2022-07-08T10:21:23.000Z"
-  }
-},
-{
-  "model": "webapp.basemodel",
-  "pk": 15,
-  "fields": {
-    "create_date": "2022-07-08T10:19:34.833Z",
-    "updated_date": "2022-07-08T10:19:34.833Z"
-  }
-},
-{
-  "model": "webapp.basemodel",
-  "pk": 16,
-  "fields": {
-    "create_date": "2022-07-08T10:19:52.169Z",
-    "updated_date": "2022-07-08T10:19:52.169Z"
+    "create_date": "2022-07-14T21:54:01.464Z",
+    "updated_date": "2022-07-14T21:54:01.464Z",
+    "summary": "Test_2",
+    "description": "How you prioritize your tasks for the week is extremely important. Balancing timelines with p",
+    "status": 2,
+    "type": [
+      2
+    ]
   }
 },
 {
   "model": "webapp.issue",
   "pk": 5,
   "fields": {
-    "summary": "Prioritize your tasks effectively",
-    "description": "How you prioritize your tasks for the week is extremely important. Balancing timelines with priority is a tricky skill to manage. When you have long-term projects with farther out due dates, you can break these projects up into smaller pieces and complete a portion of the task every day until the due date. This can help prevent you from procrastinating and having to scramble at the last minute to get bigger projects done. \r\n\r\nIf you use a work management tool, try adding a priority label to each task. Not only will this help you keep your priorities in line, but it also shows your team members what you’re focusing on for the day. If things change and you have to shift priorities, you can easily relabel your tasks accordingly.",
-    "status": 2,
-    "type": 3
-  }
-},
-{
-  "model": "webapp.issue",
-  "pk": 12,
-  "fields": {
-    "summary": "Dedicate time every week for task organization",
-    "description": "A weekly work plan works best when you use it consistently as a weekly planner. Carve out some time in your schedule every week to stop and reflect on the tasks you need to complete for the upcoming week. \r\n\r\nSome people spend some time on Friday afternoon organizing their tasks, while others use Monday morning as their weekly planning time. Both days have their benefits. Compiling your tasks on Friday allows you to come in on Monday with tasks clearly organized so you can hit the ground running. This is a good strategy for people who have trouble disconnecting from work on the weekends, because they’ll have clear insight into what their day looks like on Monday before heading into the weekend. \r\n\r\nOrganizing your weekly tasks on Monday gives you a clear overview of what you're going to work on during the week. This method is good for team members who depend on others for their tasks, such as a sales team or a customer success team. If you’re more likely to get correspondence over the weekend, creating your weekly work plan on a Monday allows you to prioritize the work that came in while you were out.",
-    "status": 2,
-    "type": 1
-  }
-},
-{
-  "model": "webapp.issue",
-  "pk": 13,
-  "fields": {
-    "summary": "Balance your weekly workload",
-    "description": "Some tasks may require more mental capacity than others. For example, doing big-picture planning can take more mental energy than answering a quick email. If you have a meeting-heavy work day, try to balance it out by putting tasks that require less mental energy on those days. Balancing your workload in this way can help prevent you from getting mentally exhausted too early in the work week. This can also prevent you from procrastinating too much and leaving most of your work until the end of the week.",
-    "status": 1,
-    "type": 1
-  }
-},
-{
-  "model": "webapp.issue",
-  "pk": 14,
-  "fields": {
-    "summary": "Plan breaks throughout your work day",
-    "description": "When you're working through your task list, don't forget to take some time out of your day for breaks. Use the weekly work plan method in addition to another productivity method like the Pomodoro method or time blocking method. Regularly building in breaks throughout the day is important. Remember, your brain is a muscle and should be treated as such.",
-    "status": 1,
-    "type": 1
-  }
-},
-{
-  "model": "webapp.issue",
-  "pk": 15,
-  "fields": {
-    "summary": "Track your to-dos in one place",
-    "description": "The most common way to start your weekly work plan is to put everything down in an old-fashioned to-do list. Digital to-do lists work best because they make it easy to sort and prioritize work—plus they’re impossible to lose. With a tool like Asana, you can also attach contextual information to tasks so you have the information you need without it cluttering up your list. The most important part of this step is that everything you need is in one space so that it becomes your source of truth for the week. If you’re unsure of what needs to happen next, you can just go back to your to-dos.\r\n\r\nIf you have a hard time tracking all of your tasks, try using the Getting Things Done (GTD) method. This technique focuses on organizing all your thoughts in one place, so you can offload the information in your brain instead of trying to mentally juggle everything.",
-    "status": 2,
-    "type": 2
-  }
-},
-{
-  "model": "webapp.issue",
-  "pk": 16,
-  "fields": {
-    "summary": "Assign deadlines for the tasks on your list",
-    "description": "ry action item on your to-do list should have a corresponding due date. This is an extremely important step for weekly work plans, as due dates will help you dictate when you should be working on each task. \r\n\r\nIf you know you need a task completed by a certain day, figure out approximately how long that individual task will take you to complete. Take that estimated time, and work backwards from the due date. This is at minimum when you should start working on that task. \r\n\r\nFor example, a manager might want next month’s social media content calendar by Friday morning. The calendar usually takes about three days to complete, so you would start working on this task at least by Tuesday during your work week.",
+    "create_date": "2022-07-14T21:54:14.940Z",
+    "updated_date": "2022-07-14T21:54:14.940Z",
+    "summary": "Test_3",
+    "description": "How you prioritize your tasks for the week is extremely important. Balancing timelines with p",
     "status": 3,
-    "type": 3
+    "type": [
+      3
+    ]
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 6,
+  "fields": {
+    "create_date": "2022-07-14T21:54:30.889Z",
+    "updated_date": "2022-07-14T21:54:30.889Z",
+    "summary": "Test_4",
+    "description": "How you prioritize your tasks for the week is extremely important. Balancing timelines with",
+    "status": 2,
+    "type": [
+      2
+    ]
+  }
+},
+{
+  "model": "webapp.issue",
+  "pk": 7,
+  "fields": {
+    "create_date": "2022-07-14T21:54:49.333Z",
+    "updated_date": "2022-07-14T21:54:49.333Z",
+    "summary": "Test_5",
+    "description": "How you prioritize your tasks for the week is extremely important. Balancing timelines with",
+    "status": 3,
+    "type": [
+      1,
+      2
+    ]
   }
 },
 {
   "model": "webapp.status",
   "pk": 1,
   "fields": {
-    "name": "New"
+    "name": "Done"
   }
 },
 {
@@ -125,14 +88,14 @@
   "model": "webapp.status",
   "pk": 3,
   "fields": {
-    "name": "Done"
+    "name": "New"
   }
 },
 {
   "model": "webapp.type",
   "pk": 1,
   "fields": {
-    "name": "Task"
+    "name": "Enhancement"
   }
 },
 {
@@ -146,15 +109,15 @@
   "model": "webapp.type",
   "pk": 3,
   "fields": {
-    "name": "Enhancement"
+    "name": "Task"
   }
 },
 {
   "model": "auth.user",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$320000$nfGyPAfhNrC1DDFMWlPxrU$44W3zgBCfkdWgXqAbmg7DYlvX4SeW+3Ps8dKh18X3Uo=",
-    "last_login": "2022-07-08T04:11:22.705Z",
+    "password": "pbkdf2_sha256$320000$3AEo4xO8a5EgPIkP2wVG1k$D3oRP5k1S9X5djqPPvCHFOh4K6T/GO5fz9mWQyHn+Es=",
+    "last_login": "2022-07-14T20:23:21.074Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -162,7 +125,7 @@
     "email": "",
     "is_staff": true,
     "is_active": true,
-    "date_joined": "2022-07-05T04:11:32.572Z",
+    "date_joined": "2022-07-14T20:22:30.107Z",
     "groups": [],
     "user_permissions": []
   }
