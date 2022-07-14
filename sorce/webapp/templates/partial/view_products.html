@@ -16,6 +16,7 @@
             <td class="align-middle">{{ issue.updated_date  }}
             </td>
             <td class="align-middle">{{ issue.status }}</td>
+
             <td class="align-middle">{% for type in issue.type.all %}{{ type.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
             <td>
                 <a href="" class="font-weight-bold px-3 text-decoration-none" data-bs-toggle="modal"

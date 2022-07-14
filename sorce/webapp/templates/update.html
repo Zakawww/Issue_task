@@ -2,7 +2,7 @@
 {% block title %}Update issue{% endblock %}
 {% block body %}
     <h1 class="text-center mb-3">Update product</h1>
-    <form action="{% url "update" issue.pk %}" method="POST">
+    <form action="{% url "update" issues.pk %}" method="POST">
         {% include 'partial/form.html' with btn_text='Update' %}
     </form>
 {% endblock %}

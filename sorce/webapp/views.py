@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import TemplateView, View
+from django.urls import reverse
+from django.views.generic import TemplateView, View, FormView
 
+from .base_view import FormView as CustomFormView
 from .forms import SearchForm, IssueForm
 from .models import Issue
 
@@ -39,51 +41,67 @@ class DeleteView(View):
         return redirect('index')
 
 
-class CreateView(View):
-    def get(self, request, *args, **kwargs):
-        form = IssueForm()
-        return render(request, 'create.html', {'form': form})
+class CreateView(CustomFormView):
+    template_name = 'create.html'
+    form_class = IssueForm
 
-    def post(self, request, *args, **kwargs):
-        form = IssueForm(data=request.POST)
-        if form.is_valid():
-            type = form.cleaned_data.pop['type']
-            new_issue = Issue.objects.create(
-                summary=form.cleaned_data['summary'],
-                description=form.cleaned_data['description'],
-                status=form.cleaned_data['status'],
-            )
-            new_issue.type.set(type)
-            return redirect('index')
-        else:
-            return render(request, 'create.html', {'form': form})
+    def form_valid(self, form):
+        # data = {}
+        # type = form.cleaned_data.pop('type')
+        # for key, value in form.cleaned_data.items():
+        #     if value is not None:
+        #         data[key] = value
+        # self.issue = Issue.objects.create(**data)
+        # self.issue.type.set(type)
+        self.issue = form.save()
+        return super().form_valid(form)
+
+    def get_redirect_url(self):
+        return reverse('detail', kwargs={'pk': self.issue.pk})
 
 
-class UpdateView(View):
-    def get(self, request, *args, **kwargs):
-        issue_pk = kwargs.get('pk')
-        issue = get_object_or_404(Issue, pk=issue_pk)
-        form = IssueForm(data={
-            'summary': issue.summary,
-            'description': issue.description,
-            'status': issue.status.id,
-            'type': issue.type.all()
-        })
-        return render(request, 'update.html', {'form': form, 'issue': issue})
+class UpdateView(FormView):
+    form_class = IssueForm
+    template_name = "update.html"
 
-    def post(self, request, *args, **kwargs):
-        form = IssueForm(data=request.POST)
-        issue_pk = kwargs.get('pk')
-        issue = get_object_or_404(Issue, pk=issue_pk)
-        if form.is_valid():
-            issue.summary = form.cleaned_data['summary']
-            issue.description = form.cleaned_data['description']
-            issue.status = form.cleaned_data['status']
-            issue.type.set(form.cleaned_data.pop('type'))
-            issue.save()
-            return redirect('index')
-        else:
-            return render(request, 'update.html', {'form': form, 'issue': issue})
+    def dispatch(self, request, *args, **kwargs):
+        self.issue = self.get_object()
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['issues'] = self.issue
+        return context
+
+    # def get_initial(self):
+    #     initial = {}
+    #     for key in 'summary', 'description', 'status', 'type':
+    #         initial[key] = getattr(self.issue, key)
+    #     initial['type'] = self.issue.type.all()
+    #     return initial
+
+    def get_form_kwargs(self):
+        form_kwargs = super().get_form_kwargs()
+        form_kwargs['instance'] = self.issue
+        return form_kwargs
+
+    def form_valid(self, form):
+        # type = form.cleaned_data.pop('type')
+        # for key, value in form.cleaned_data.items():
+        #     if value is not None:
+        #         setattr(self.issue, key, value)
+        # self.issue.save()
+        # self.issue.type.set(type)
+        self.issue = form.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("detail", kwargs={"pk": self.issue.pk})
+
+    def get_object(self):
+        # pk = self.kwargs.get('pk')
+        # return get_object_or_404(Issue, pk=pk)
+        return get_object_or_404(Issue, pk=self.kwargs.get("pk"))
 
 
 def search(request):
