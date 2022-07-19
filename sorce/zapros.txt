@@ -1,0 +1,15 @@
+
+
+Issue.objects.filter(updated_date__date__gte=(datetime.now()-timedelta(days=30)),status=Status.objects.get(name='Done').pk)
+
+
+Issue.objects.filter(status__name="In Progress", type__name="Bug")
+
+
+q1=Q(summary__icontains='bug')
+q2=Q(type__name='Bug')
+q3=Issue.objects.filter(q1 | q2)
+r=Q(status__name='Done')
+r2=Issue.objects.filter(~r)
+q3 & r2
+
