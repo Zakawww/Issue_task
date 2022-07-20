@@ -1,8 +1,19 @@
 from django.views import View
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
+from django.views.generic import TemplateView
 
-from webapp.forms import IssueForm
-from webapp.models import Issue
+
+class ListView(TemplateView):
+    model = None
+    context_key = "objects"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context[self.context_key] = self.model.objects.all()
+        return context
+
+    def get_object(self):
+        return self.model.objects.all()
 
 
 class FormView(View):
@@ -29,10 +40,8 @@ class FormView(View):
         return kwargs
 
     def form_valid(self, form):
-        # return self.get_redirect_url()
         return redirect(self.get_redirect_url())
 
     def form_invalid(self, form):
         context = self.get_context_data(form=form)
         return render(self.request, self.template_name, context)
-
