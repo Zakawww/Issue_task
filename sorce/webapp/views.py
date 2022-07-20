@@ -1,22 +1,49 @@
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from django.views.generic import TemplateView, View, FormView
+from django.views.generic import TemplateView, View, FormView, ListView
 
 from .base_view import FormView as CustomFormView
 from .forms import SearchForm, IssueForm
 from .models import Issue
+from django.utils.http import urlencode
 
 
-class IndexView(TemplateView):
+class IndexView(ListView):
+    model = Issue
     template_name = 'index.html'
+    context_object_name = 'issues'
+    ordering = '-updated_date'
+    paginate_by = 5  # отображает 2 статьи
+    paginate_orphans = 2  # отображает на последней страницы сколько будет статей
+    page_kwarg = "page"  # можно переопределить
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        form = SearchForm()
-        issues = Issue.objects.all()
-        context['issues'] = issues
-        context['form'] = form
+    def get(self, request, *args, **kwargs):
+        self.form = self.get_search_form()
+        self.search_value = self.get_search_value()
+        return super().get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        if self.search_value:
+            return Issue.objects.filter(
+                Q(summary__icontains=self.search_value) | Q(description__icontains=self.search_value))
+        return Issue.objects.all()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['form'] = self.form
+        if self.search_value:
+            query = urlencode({'search': self.search_value})
+            context['query'] = query
+            context['search'] = self.search_value
         return context
+
+    def get_search_form(self):
+        return SearchForm(self.request.GET)
+
+    def get_search_value(self):
+        if self.form.is_valid():
+            return self.form.cleaned_data.get('search')
 
 
 class DetailView(TemplateView):
@@ -46,13 +73,6 @@ class CreateView(CustomFormView):
     form_class = IssueForm
 
     def form_valid(self, form):
-        # data = {}
-        # type = form.cleaned_data.pop('type')
-        # for key, value in form.cleaned_data.items():
-        #     if value is not None:
-        #         data[key] = value
-        # self.issue = Issue.objects.create(**data)
-        # self.issue.type.set(type)
         self.issue = form.save()
         return super().form_valid(form)
 
@@ -73,25 +93,12 @@ class UpdateView(FormView):
         context['issues'] = self.issue
         return context
 
-    # def get_initial(self):
-    #     initial = {}
-    #     for key in 'summary', 'description', 'status', 'type':
-    #         initial[key] = getattr(self.issue, key)
-    #     initial['type'] = self.issue.type.all()
-    #     return initial
-
     def get_form_kwargs(self):
         form_kwargs = super().get_form_kwargs()
         form_kwargs['instance'] = self.issue
         return form_kwargs
 
     def form_valid(self, form):
-        # type = form.cleaned_data.pop('type')
-        # for key, value in form.cleaned_data.items():
-        #     if value is not None:
-        #         setattr(self.issue, key, value)
-        # self.issue.save()
-        # self.issue.type.set(type)
         self.issue = form.save()
         return super().form_valid(form)
 
@@ -99,16 +106,4 @@ class UpdateView(FormView):
         return reverse("detail", kwargs={"pk": self.issue.pk})
 
     def get_object(self):
-        # pk = self.kwargs.get('pk')
-        # return get_object_or_404(Issue, pk=pk)
         return get_object_or_404(Issue, pk=self.kwargs.get("pk"))
-
-
-def search(request):
-    form = SearchForm(data=request.GET)
-    if form.is_valid():
-        summary = form.cleaned_data['summary']
-        issues = Issue.objects.filter(summary__contains=summary)
-        return render(request, 'index.html', {'issues': issues, 'form': form})
-    else:
-        return redirect('index')
