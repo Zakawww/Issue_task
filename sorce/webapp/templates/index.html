@@ -3,17 +3,7 @@
     Issues
 {% endblock %}
 {% block body %}
-    <form action="{% url "search" %}">
-        <form class="form-inline">
-            {% for field in form %}
-                <div class="form-group mb-2 d-inline-block">
-                    <label for="name" class="sr-only">{{ field.label }}</label>
-                    {{ field }}
-                </div>
-            {% endfor %}
-
-            <button type="submit" class="btn btn-primary mb-1">Search</button>
-        </form>
-    </form>
+    {% include "partial/search.html" %}
     {% include 'partial/view_products.html' %}
+    {% include 'partial/pagination.html' %}
 {% endblock %}
