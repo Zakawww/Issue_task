@@ -3,18 +3,18 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import TemplateView, View, FormView, ListView
 
-from .base_view import FormView as CustomFormView
-from .forms import SearchForm, IssueForm
-from .models import Issue
+from webapp.base_view import FormView as CustomFormView
+from webapp.forms import SearchForm, IssueForm
+from webapp.models import Issue
 from django.utils.http import urlencode
 
 
 class IndexView(ListView):
     model = Issue
-    template_name = 'index.html'
+    template_name = 'issues/index.html'
     context_object_name = 'issues'
     ordering = '-updated_date'
-    paginate_by = 5  # отображает 2 статьи
+    paginate_by = 5  # отображает 5 статьи
     paginate_orphans = 2  # отображает на последней страницы сколько будет статей
     page_kwarg = "page"  # можно переопределить
 
@@ -47,7 +47,7 @@ class IndexView(ListView):
 
 
 class DetailView(TemplateView):
-    template_name = 'detail.html'
+    template_name = 'issues/detail.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -60,7 +60,7 @@ class DetailView(TemplateView):
 class DeleteView(View):
     def get(self, request, pk):
         issue = get_object_or_404(Issue, pk=pk)
-        return render(request, 'index.html', {'issue': issue})
+        return render(request, 'issues/index.html', {'issue': issue})
 
     def post(self, request, pk):
         issue = get_object_or_404(Issue, pk=pk)
@@ -69,7 +69,7 @@ class DeleteView(View):
 
 
 class CreateView(CustomFormView):
-    template_name = 'create.html'
+    template_name = 'issues/create.html'
     form_class = IssueForm
 
     def form_valid(self, form):
@@ -82,7 +82,7 @@ class CreateView(CustomFormView):
 
 class UpdateView(FormView):
     form_class = IssueForm
-    template_name = "update.html"
+    template_name = "issues/update.html"
 
     def dispatch(self, request, *args, **kwargs):
         self.issue = self.get_object()
