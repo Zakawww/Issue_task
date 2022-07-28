@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}
+    Detail
+{% endblock %}
+{% block body %}
+    {% for project in projects %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Project</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Наименование проекта: <a href="{% url 'detail_project' project.pk %}" class="text-dark">{{ project.summary }}</a></h6>
+                <p class="card-text">Описание: {{ project.description }}</p>
+                <small class="card-text">Дата создания: {{ project.create_date }}</small><br>
+                <small class="card-text">Дата окончания: {{ project.end_date }}</small>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}{{ project.summary }}{% endblock %}
+{% block body %}
+    <div class="alert alert-secondary">
+        <div class="alert alert-success">
+            <h5 class="mb-3">Проект: <span class="text-primary">{{ project.summary }}</span></h5>
+            <hr>
+            <p class="mb-1">Описание: <span class="text-primary">{{ project.description }}</span></p>
+        </div>
+        <table class="table table-borderless table-sm alert alert-info text-center">
+            <thead>
+            <tr>
+                <th scope="col" class="pl-3">Дата создания</th>
+                <th scope="col">Дата окончания</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="text-primary">{{ project.create_date }}</td>
+                <td class="text-primary">{{ project.end_date }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="alert alert-primary">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Задачи проекта:</h5>
+            </div>
+
+
+            {% for issue in project.issues %}
+                <p class="mb-1"><a href="{% url 'webapp:issue_detail' issue.pk %}">{{ issue }}</a></p>
+            {% endfor %}
+
+            {% for issue in issues.projects.all %}
+                <p class="mb-1"><a href="{% url 'webapp:issue_detail' issue.pk %}">{{ issue }}</a></p>
+            {% endfor %}
+
+            {% for issue in projects.issues.all %}
+                <p class="mb-1">{{ issue.summary }}</p>
+                <p class="mb-1">{{ issue }}</p>
+            {% endfor %}
+
+            {% for project in issues.projects.all %}
+                <div class="comment">
+                    <p>{{ project.summary }} commented at {{ project.created_at }}</p>
+                    <div class="pre">{{ project.description }}</div>
+                </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
+    <a href="{% url 'project' %}" class="btn btn-primary mt-3 col-4 offset-4">Назад</a>
+{% endblock %}
