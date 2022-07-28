@@ -1,9 +1,9 @@
-
 <table class="table fs-5">
     <thead class="table-dark">
     <th scope="col">Summary</th>
     <th scope="col">Date</th>
     <th scope="col">Status</th>
+    <th scope="col">Project</th>
     <th scope="col">Type</th>
     <th scope="col">Options</th>
     </thead>
@@ -13,12 +13,15 @@
             <th class="align-middle">
                 <a href="{% url 'detail' issue.pk %}" class="text-dark">{{ issue.summary }}</a>
             </th>
-            <td class="align-middle">{{ issue.updated_date  }}
+            <td class="align-middle">{{ issue.updated_date }}
             </td>
             <td class="align-middle">{{ issue.status }}</td>
+            <td class="align-middle">{{ issue.project }}</td>
 
-            <td class="align-middle">{% for type in issue.type.all %}{{ type.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
+            <td class="align-middle">
+                {% for type in issue.type.all %}{{ type.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
             <td>
+
                 <a href="" class="font-weight-bold px-3 text-decoration-none" data-bs-toggle="modal"
                    data-bs-target="#modal{{ issue.pk }}">
                     <i class="fa-solid fa-trash"></i>

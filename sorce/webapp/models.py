@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from webapp.validate import validate_title, MinLengthValidator
 
@@ -18,9 +19,14 @@ class Issue(BaseModel):
     status = models.ForeignKey('webapp.Status', on_delete=models.PROTECT, related_name='issues',
                                verbose_name='Статус')
     type = models.ManyToManyField('webapp.Type', related_name='issues', verbose_name='Тип')
+    project = models.ForeignKey('webapp.Project', related_name='projects', on_delete=models.CASCADE,
+                                verbose_name='Проект')
 
     def __str__(self):
         return f"{self.id}.{self.summary}"
+
+    def get_absolute_url(self):
+        return reverse("detail", kwargs={"pk": self.pk})
 
     class Meta:
         db_table = 'issue_tracker'
@@ -48,3 +54,20 @@ class Type(models.Model):
     class Meta:
         verbose_name = 'Тип задачи'
         verbose_name_plural = 'Типы задач'
+
+
+class Project(models.Model):
+    summary = models.CharField(max_length=60, verbose_name='Название')
+    description = models.TextField(max_length=400, null=True, blank=True, verbose_name='Описание')
+    create_date = models.DateField(verbose_name='Дата создания')
+    end_date = models.DateField(verbose_name='Дата окончания')
+
+    def __str__(self):
+        return f"{self.summary}"
+
+    def get_absolute_url(self):
+        return reverse('detail_project', kwargs={'pk': self.pk})
+
+    class Meta:
+        verbose_name = 'Проект'
+        verbose_name_plural = 'Проекты'

@@ -13,6 +13,7 @@
             <hr>
                 <small>Type: {% for type in issues.type.all %}{{ type.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</small><br>
                 <small>Status: {{ issues.status }}</small><br>
+                <small>Project: {{ issues.project }}</small><br>
                 <small>Date: {{ issues.updated_date }}</small>
         </span>
     </div>
