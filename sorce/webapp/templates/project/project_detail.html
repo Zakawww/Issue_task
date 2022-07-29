@@ -28,11 +28,11 @@
             {% for issue in project.projects.all %}
                 <p class="mb-1"><a href="{% url 'detail' issue.pk %}">{{ issue }}</a></p>
             {% empty %}
-                <p>Задач нет</p>
+                <p>No Task</p>
             {% endfor %}
         </div>
         <a class="nav-item nav-link" href="{% url 'create_project_issue' project.pk %}">Add new Task</a>
-        <a class="nav-item nav-link" href="{% url 'update_project' project.pk %}">Edit project</a>
+        <a class="nav-item nav-link" href="{% url 'update_project' project.pk %}">Edit Project</a>
         <a href="{% url 'project' %}" class="btn btn-primary mt-3 col-4 offset-4">Назад</a>
     </div>
 {% endblock %}
