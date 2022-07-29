@@ -22,3 +22,9 @@ class ProjectForm(forms.ModelForm):
         model = Project
         fields = '__all__'
 
+
+class IssueProjectForm(forms.ModelForm):
+
+    class Meta:
+        model = Issue
+        exclude = ['create_date', 'project', 'updated_date']

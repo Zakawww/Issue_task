@@ -1,0 +1,16 @@
+{% csrf_token %}
+
+{% for error in form.not_field_errors %}
+    <p class="text-danger">{{ error }}</p>
+{% endfor %}
+
+{% for field in form %}
+    <p><label for="{{ field.id_for_label }}">{{ field.label }}</label></p>
+    {% for error in field.errors %}
+        <p class="text-danger">{{ error }}</p>
+    {% endfor %}
+{% endfor %}
+<p class="text-center">
+    <input type="submit" value="{{ button_text }}" class="btn btn-success">
+    <a href="{% url 'projects_list' %}" class="btn btn-primary">Отмена</a>
+</p>

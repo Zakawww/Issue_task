@@ -25,30 +25,14 @@
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">Задачи проекта:</h5>
             </div>
-
-
-            {% for issue in project.issues %}
-                <p class="mb-1"><a href="{% url 'webapp:issue_detail' issue.pk %}">{{ issue }}</a></p>
+            {% for issue in project.projects.all %}
+                <p class="mb-1"><a href="{% url 'detail' issue.pk %}">{{ issue }}</a></p>
+            {% empty %}
+                <p>Задач нет</p>
             {% endfor %}
-
-            {% for issue in issues.projects.all %}
-                <p class="mb-1"><a href="{% url 'webapp:issue_detail' issue.pk %}">{{ issue }}</a></p>
-            {% endfor %}
-
-            {% for issue in projects.issues.all %}
-                <p class="mb-1">{{ issue.summary }}</p>
-                <p class="mb-1">{{ issue }}</p>
-            {% endfor %}
-
-            {% for project in issues.projects.all %}
-                <div class="comment">
-                    <p>{{ project.summary }} commented at {{ project.created_at }}</p>
-                    <div class="pre">{{ project.description }}</div>
-                </div>
-            {% endfor %}
-
-
         </div>
+        <a class="nav-item nav-link" href="{% url 'create_project_issue' project.pk %}">Add new Task</a>
+        <a class="nav-item nav-link" href="{% url 'update_project' project.pk %}">Edit project</a>
+        <a href="{% url 'project' %}" class="btn btn-primary mt-3 col-4 offset-4">Назад</a>
     </div>
-    <a href="{% url 'project' %}" class="btn btn-primary mt-3 col-4 offset-4">Назад</a>
 {% endblock %}

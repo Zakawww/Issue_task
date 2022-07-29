@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import TemplateView, View, FormView, ListView, CreateView, DetailView, DeleteView, UpdateView
 
-from .forms import SearchForm, IssueForm, ProjectForm
+from .forms import SearchForm, IssueForm, ProjectForm, IssueProjectForm
 from .models import Issue, Project
 from django.utils.http import urlencode
 
@@ -56,15 +56,21 @@ class IssueDetailView(TemplateView):
         return context
 
 
-class IssueDeleteView(View):
-    def get(self, request, pk):
-        issue = get_object_or_404(Issue, pk=pk)
-        return render(request, 'index.html', {'issue': issue})
+# class IssueDeleteView(View):
+#     def get(self, request, pk):
+#         issue = get_object_or_404(Issue, pk=pk)
+#         return render(request, 'index.html', {'issue': issue})
+#
+#     def post(self, request, pk):
+#         issue = get_object_or_404(Issue, pk=pk)
+#         issue.delete()
+#         return redirect('index')
 
-    def post(self, request, pk):
-        issue = get_object_or_404(Issue, pk=pk)
-        issue.delete()
-        return redirect('index')
+class IssueDeleteView(DeleteView):
+    model = Issue
+
+    def get_success_url(self):
+        return reverse('index')
 
 
 class IssueCreateView(CreateView):
@@ -121,6 +127,20 @@ class IssueUpdateView(UpdateView):
 #         return get_object_or_404(Issue, pk=self.kwargs.get("pk"))
 
 
+class IssueProjectCreateView(CreateView):
+    model = Project
+    template_name = 'create.html'
+    form_class = IssueProjectForm
+
+    def form_valid(self, form):
+        project_pk = self.kwargs.get('pk')
+        project = get_object_or_404(Project, pk=project_pk)
+        types = form.cleaned_data.pop('type')
+        issue = project.projects.create(**form.cleaned_data)
+        issue.type.set(types)
+        return redirect('detail_project', pk=project_pk)
+
+
 class ProjectView(ListView):
     model = Project
     template_name = 'project/project_list.html'
@@ -140,9 +160,24 @@ class DetailProjectView(DetailView):
         return Project.objects.all()
 
 
-class UpdateProjectView(FormView):
+# class CommentUpdateView(UpdateView):
+#     model = Comment
+#     template_name = 'comment/update.html'
+#     form_class = ArticleCommentForm
+#     context_object_name = 'comment'
+#
+#     def get_success_url(self):
+#         return reverse('article_view', kwargs={'pk': self.object.article.pk})
+
+
+class UpdateProjectView(UpdateView):
     model = Project
+    form_class = ProjectForm
     template_name = 'project/project_update.html'
+    context_object_name = 'project'
+
+    def get_success_url(self):
+        return reverse('update_project', kwargs={'pk': self.object.pk})
 
 
 class CreateProjectView(CreateView):
