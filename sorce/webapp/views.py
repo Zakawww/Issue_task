@@ -89,14 +89,14 @@ class IssueCreateView(LoginRequiredMixin, CreateView):
     #     return reverse('webapp:detail', kwargs={'pk': self.object.pk})
 
 
-class IssueUpdateView(UpdateView):
+class IssueUpdateView(LoginRequiredMixin, UpdateView):
     form_class = IssueForm
     template_name = "update.html"
     model = Issue
     context_object_name = 'issues'
 
 
-class IssueProjectCreateView(CreateView):
+class IssueProjectCreateView(LoginRequiredMixin, CreateView):
     model = Project
     template_name = 'create.html'
     form_class = IssueProjectForm
@@ -108,6 +108,15 @@ class IssueProjectCreateView(CreateView):
         issue = project.projects.create(**form.cleaned_data)
         issue.type.set(types)
         return redirect('webapp:detail_project', pk=project_pk)
+
+
+class CreateProjectView(LoginRequiredMixin, CreateView):
+    model = Project
+    template_name = 'project/create_project.html'
+    form_class = ProjectForm
+
+    def get_success_url(self):
+        return reverse('webapp:detail_project', kwargs={'pk': self.object.pk})
 
 
 class ProjectView(ListView):
@@ -124,7 +133,7 @@ class DetailProjectView(DetailView):
         return Project.objects.all()
 
 
-class UpdateProjectView(UpdateView):
+class UpdateProjectView(LoginRequiredMixin, UpdateView):
     model = Project
     form_class = ProjectForm
     template_name = 'project/project_update.html'
@@ -134,16 +143,10 @@ class UpdateProjectView(UpdateView):
         return reverse('webapp:detail_project', kwargs={'pk': self.object.pk})
 
 
-class CreateProjectView(CreateView):
-    model = Project
-    template_name = 'project/create_project.html'
-    form_class = ProjectForm
-
-    def get_success_url(self):
-        return reverse('webapp:detail_project', kwargs={'pk': self.object.pk})
 
 
-class DeleteProjectView(DeleteView):
+
+class DeleteProjectView(LoginRequiredMixin, DeleteView):
     model = Project
 
     def get_success_url(self):
