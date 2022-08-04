@@ -26,7 +26,13 @@
                 <a class="nav-item nav-link" href="{% url 'webapp:create' %}">Add new task</a>
                 <a class="nav-item nav-link" href="{% url 'webapp:create_project' %}">Add new project</a>
                 <a class="nav-item nav-link" href="{% url 'webapp:project' %}">Project</a>
-                </a>
+                {% if request.user.is_authenticated %}
+                    {% block menu_links %}{% endblock %}
+                    <li class="menu-right"><a href="{% url 'accounts:logout' %}" class="nav-link">Выход</a></li>
+                    <li class="menu-right text-white my-2">Привет, {{ user.username }}!</li>
+                {% else %}
+                    <li class="menu-right"><a href="{% url 'accounts:login' %}" class="nav-link">Вход</a></li>
+                {% endif %}
             </div>
         </div>
     </div>
