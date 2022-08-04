@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
@@ -56,16 +57,6 @@ class IssueDetailView(TemplateView):
         return context
 
 
-# class IssueDeleteView(View):
-#     def get(self, request, pk):
-#         issue = get_object_or_404(Issue, pk=pk)
-#         return render(request, 'index.html', {'issue': issue})
-#
-#     def post(self, request, pk):
-#         issue = get_object_or_404(Issue, pk=pk)
-#         issue.delete()
-#         return redirect('index')
-
 class IssueDeleteView(DeleteView):
     model = Issue
 
@@ -73,19 +64,29 @@ class IssueDeleteView(DeleteView):
         return reverse('webapp:index')
 
 
-class IssueCreateView(CreateView):
+# class IssueCreateView(CreateView):
+#     template_name = 'create.html'
+#     form_class = IssueForm
+#
+#     # def get_success_url(self):
+#     #     return reverse('webapp:detail', kwargs={'pk': self.object.pk})
+#
+#     def dispatch(self, request, *args, **kwargs):
+#         if not request.user.is_authenticated:
+#             return redirect('accounts:login')
+#         return super().dispatch(request, *args, **kwargs)
+#
+#     def get_success_url(self):
+#         return reverse('webapp:detail', kwargs={'pk': self.object.pk})
+
+
+class IssueCreateView(LoginRequiredMixin, CreateView):
     template_name = 'create.html'
+    model = Issue
     form_class = IssueForm
 
-    # def form_valid(self, form):
-    #     self.issue = form.save()
-    #     return super().form_valid(form)
-
-    # def get_redirect_url(self):
-    #     return reverse('detail', kwargs={'pk': self.object.pk})
-
-    def get_success_url(self):
-        return reverse('webapp:detail', kwargs={'pk': self.object.pk})
+    # def get_success_url(self):
+    #     return reverse('webapp:detail', kwargs={'pk': self.object.pk})
 
 
 class IssueUpdateView(UpdateView):
@@ -93,38 +94,6 @@ class IssueUpdateView(UpdateView):
     template_name = "update.html"
     model = Issue
     context_object_name = 'issues'
-
-    # def get_success_url(self):
-    #     return reverse("detail", kwargs={"pk": self.object.pk})
-
-
-# class IssueUpdateView(FormView):
-#     form_class = IssueForm
-#     template_name = "update.html"
-#
-#     def dispatch(self, request, *args, **kwargs):
-#         self.issue = self.get_object()
-#         return super().dispatch(request, *args, **kwargs)
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['issues'] = self.issue
-#         return context
-#
-#     def get_form_kwargs(self):
-#         form_kwargs = super().get_form_kwargs()
-#         form_kwargs['instance'] = self.issue
-#         return form_kwargs
-#
-#     def form_valid(self, form):
-#         self.issue = form.save()
-#         return super().form_valid(form)
-#
-#     def get_success_url(self):
-#         return reverse("detail", kwargs={"pk": self.issue.pk})
-#
-#     def get_object(self):
-#         return get_object_or_404(Issue, pk=self.kwargs.get("pk"))
 
 
 class IssueProjectCreateView(CreateView):
@@ -151,23 +120,8 @@ class DetailProjectView(DetailView):
     model = Project
     template_name = 'project/project_detail.html'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['project'] = self.projects
-    #     return context
-
     def get_queryset(self):
         return Project.objects.all()
-
-
-# class CommentUpdateView(UpdateView):
-#     model = Comment
-#     template_name = 'comment/update.html'
-#     form_class = ArticleCommentForm
-#     context_object_name = 'comment'
-#
-#     def get_success_url(self):
-#         return reverse('article_view', kwargs={'pk': self.object.article.pk})
 
 
 class UpdateProjectView(UpdateView):
@@ -191,9 +145,6 @@ class CreateProjectView(CreateView):
 
 class DeleteProjectView(DeleteView):
     model = Project
-
-    # def get(self, request, *args, **kwargs):
-    #     return self.delete(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse('webapp:project')

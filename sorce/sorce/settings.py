@@ -118,6 +118,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+# LOGIN_URL = "/accounts/login/"
+LOGIN_URL = "accounts:login"
+LOGIN_REDIRECT_URL = "webapp:index"
+LOGOUT_REDIRECT_URL = "webapp:index"
 
 # STATICFILES_DIRS = [
 #     BASE_DIR / "static",
@@ -126,7 +130,7 @@ STATIC_URL = 'static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-LOGIN_REDIRECT_URL = 'index'
-LOGOUT_REDIRECT_URL = 'login'
+LOGIN_REDIRECT_URL = 'webapp:index'
+LOGOUT_REDIRECT_URL = 'accounts:login'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

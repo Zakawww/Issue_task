@@ -21,14 +21,16 @@
             <td class="align-middle">
                 {% for type in issue.type.all %}{{ type.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
             <td>
+                {% if request.user.is_authenticated %}
 
-                <a href="" class="font-weight-bold px-3 text-decoration-none" data-bs-toggle="modal"
-                   data-bs-target="#modal{{ issue.pk }}">
-                    <i class="fa-solid fa-trash"></i>
-                </a>
-                <a href="{% url 'webapp:update' issue.pk %}" class=" font-weight-bold  px-3 text-decoration-none">
-                    <i class="fa-solid fa-file-pen"></i>
-                </a>
+                    <a href="" class="font-weight-bold px-3 text-decoration-none" data-bs-toggle="modal"
+                       data-bs-target="#modal{{ issue.pk }}">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                    <a href="{% url 'webapp:update' issue.pk %}" class=" font-weight-bold  px-3 text-decoration-none">
+                        <i class="fa-solid fa-file-pen"></i>
+                    </a>
+                {% endif %}
                 <a href="{% url 'webapp:detail' issue.pk %}" class=" font-weight-bold  px-3 text-decoration-none">
                     <i class="fa-solid fa-circle-info"></i>
                 </a>
