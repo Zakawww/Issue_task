@@ -70,7 +70,7 @@ class IssueDeleteView(DeleteView):
     model = Issue
 
     def get_success_url(self):
-        return reverse('index')
+        return reverse('webapp:index')
 
 
 class IssueCreateView(CreateView):
@@ -85,7 +85,7 @@ class IssueCreateView(CreateView):
     #     return reverse('detail', kwargs={'pk': self.object.pk})
 
     def get_success_url(self):
-        return reverse('detail', kwargs={'pk': self.object.pk})
+        return reverse('webapp:detail', kwargs={'pk': self.object.pk})
 
 
 class IssueUpdateView(UpdateView):
@@ -138,7 +138,7 @@ class IssueProjectCreateView(CreateView):
         types = form.cleaned_data.pop('type')
         issue = project.projects.create(**form.cleaned_data)
         issue.type.set(types)
-        return redirect('detail_project', pk=project_pk)
+        return redirect('webapp:detail_project', pk=project_pk)
 
 
 class ProjectView(ListView):
@@ -177,7 +177,7 @@ class UpdateProjectView(UpdateView):
     context_object_name = 'project'
 
     def get_success_url(self):
-        return reverse('update_project', kwargs={'pk': self.object.pk})
+        return reverse('webapp:detail_project', kwargs={'pk': self.object.pk})
 
 
 class CreateProjectView(CreateView):
@@ -186,14 +186,14 @@ class CreateProjectView(CreateView):
     form_class = ProjectForm
 
     def get_success_url(self):
-        return reverse('detail_project', kwargs={'pk': self.object.pk})
+        return reverse('webapp:detail_project', kwargs={'pk': self.object.pk})
 
 
 class DeleteProjectView(DeleteView):
     model = Project
 
-    def get(self, request, *args, **kwargs):
-        return self.delete(request, *args, **kwargs)
+    # def get(self, request, *args, **kwargs):
+    #     return self.delete(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('project', kwargs={'pk': self.object.projects.pk})
+        return reverse('webapp:project')

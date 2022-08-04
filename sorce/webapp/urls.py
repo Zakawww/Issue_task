@@ -3,6 +3,8 @@ from django.urls import path
 from webapp.views import IndexView, IssueDetailView, IssueCreateView, IssueDeleteView, IssueUpdateView, \
     CreateProjectView, DetailProjectView, ProjectView, UpdateProjectView, DeleteProjectView, IssueProjectCreateView
 
+app_name = 'webapp'
+
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('product/<int:pk>', IssueDetailView.as_view(), name='detail'),
@@ -13,6 +15,6 @@ urlpatterns = [
     path('projects/create/', CreateProjectView.as_view(), name='create_project'),
     path('projects/<int:pk>', DetailProjectView.as_view(), name='detail_project'),
     path('projects/<int:pk>/update', UpdateProjectView.as_view(), name='update_project'),
-    path('projects/<int:pk>', DeleteProjectView.as_view(), name='delete_project'),
+    path('projects/<int:pk>/delete', DeleteProjectView.as_view(), name='delete_project'),
     path('projects/', ProjectView.as_view(), name='project'),
 ]

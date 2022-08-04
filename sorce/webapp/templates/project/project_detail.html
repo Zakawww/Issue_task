@@ -26,13 +26,41 @@
                 <h5 class="mb-1">Задачи проекта:</h5>
             </div>
             {% for issue in project.projects.all %}
-                <p class="mb-1"><a href="{% url 'detail' issue.pk %}">{{ issue }}</a></p>
+                <p class="mb-1"><a href="{% url 'webapp:detail' issue.pk %}">{{ issue }}</a></p>
             {% empty %}
                 <p>No Task</p>
             {% endfor %}
         </div>
-        <a class="nav-item nav-link" href="{% url 'create_project_issue' project.pk %}">Add new Task</a>
-        <a class="nav-item nav-link" href="{% url 'update_project' project.pk %}">Edit Project</a>
-        <a href="{% url 'project' %}" class="btn btn-primary mt-3 col-4 offset-4">Назад</a>
+        <a class="nav-item nav-link" href="{% url 'webapp:create_project_issue' project.pk %}">Add new Task</a>
+        <a class="nav-item nav-link" href="{% url 'webapp:update_project' project.pk %}">Edit Project</a>
+        <a href="" class="font-weight-bold px-3 text-decoration-none" data-bs-toggle="modal_project"
+                   data-bs-target="#modal_project{{ project.pk }}">Delete Project</a>
+        <a href="{% url 'webapp:project' %}" class="btn btn-primary mt-3 col-4 offset-4">Назад</a>
     </div>
+    {% for issue in project.projects.all %}
+        <div class="modal fade" id="modal_project{{ project.pk }}" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Project?</h5>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group">
+                            <li class="list-group-item">Summary: <b>{{ project.summary }}</b></li>
+{#                            <li class="list-group-item">Status: <b>{{ issue.status }}</b></li>#}
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="" class="btn btn-secondary" data-dismiss="modal_project">Cancel</a>
+                        <form action="{% url "webapp:delete_project" project.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}

@@ -11,7 +11,7 @@
     {% for issue in issues %}
         <tr>
             <th class="align-middle">
-                <a href="{% url 'detail' issue.pk %}" class="text-dark">{{ issue.summary }}</a>
+                <a href="{% url 'webapp:detail' issue.pk %}" class="text-dark">{{ issue.summary }}</a>
             </th>
             <td class="align-middle">{{ issue.updated_date }}
             </td>
@@ -26,10 +26,10 @@
                    data-bs-target="#modal{{ issue.pk }}">
                     <i class="fa-solid fa-trash"></i>
                 </a>
-                <a href="{% url 'update' issue.pk %}" class=" font-weight-bold  px-3 text-decoration-none">
+                <a href="{% url 'webapp:update' issue.pk %}" class=" font-weight-bold  px-3 text-decoration-none">
                     <i class="fa-solid fa-file-pen"></i>
                 </a>
-                <a href="{% url 'detail' issue.pk %}" class=" font-weight-bold  px-3 text-decoration-none">
+                <a href="{% url 'webapp:detail' issue.pk %}" class=" font-weight-bold  px-3 text-decoration-none">
                     <i class="fa-solid fa-circle-info"></i>
                 </a>
             </td>
@@ -51,7 +51,7 @@
                     </div>
                     <div class="modal-footer">
                         <a href="" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
-                        <form action="{% url "delete" issue.pk %}" method="post">
+                        <form action="{% url "webapp:delete" issue.pk %}" method="post">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-primary">Delete</button>
                         </form>

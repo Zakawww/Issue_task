@@ -26,7 +26,7 @@ class Issue(BaseModel):
         return f"{self.id}.{self.summary}"
 
     def get_absolute_url(self):
-        return reverse("detail", kwargs={"pk": self.pk})
+        return reverse("webapp:detail", kwargs={"pk": self.pk})
 
     class Meta:
         db_table = 'issue_tracker'
@@ -66,7 +66,7 @@ class Project(models.Model):
         return f"{self.summary}"
 
     def get_absolute_url(self):
-        return reverse('detail_project', kwargs={'pk': self.pk})
+        return reverse('webapp:detail_project', kwargs={'pk': self.pk})
 
     class Meta:
         verbose_name = 'Проект'
