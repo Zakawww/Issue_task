@@ -3,7 +3,30 @@
     Issues
 {% endblock %}
 {% block body %}
-    {% include "partial/search.html" %}
-    {% include 'partial/view_products.html' %}
-    {% include 'partial/pagination.html' %}
+    {#    {% include "partial/search.html" %}#}
+{#    <a class="nav-item nav-link" href="{% url 'webapp:project' %}">Projects</a>#}
+{#    <a class="nav-item nav-link" href="{% url 'webapp:task' %}">Task</a>#}
+
+    {#    {% include 'partial/view_products.html' %}#}
+    {#    {% include 'partial/pagination.html' %}#}
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">All Projects</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="{% url 'webapp:project' %}" class="btn btn-primary">Go Projects</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">All Tasks</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="{% url 'webapp:task' %}" class="btn btn-primary">Go Task</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

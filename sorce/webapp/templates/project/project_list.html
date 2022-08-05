@@ -22,16 +22,17 @@
             <td class="align-middle">{{ project.end_date }}</td>
             <td>
                 {% if request.user.is_authenticated %}
-
                     <a href="" class="font-weight-bold px-3 text-decoration-none" data-bs-toggle="modal"
                        data-bs-target="#modal{{ project.pk }}">
                         <i class="fa-solid fa-trash"></i>
                     </a>
-                    <a href="{% url 'webapp:update_project' project.pk %}" class=" font-weight-bold  px-3 text-decoration-none">
+                    <a href="{% url 'webapp:update_project' project.pk %}"
+                       class=" font-weight-bold  px-3 text-decoration-none">
                         <i class="fa-solid fa-file-pen"></i>
                     </a>
                 {% endif %}
-                <a href="{% url 'webapp:detail_project' project.pk %}" class=" font-weight-bold  px-3 text-decoration-none">
+                <a href="{% url 'webapp:detail_project' project.pk %}"
+                   class=" font-weight-bold  px-3 text-decoration-none">
                     <i class="fa-solid fa-circle-info"></i>
                 </a>
             </td>

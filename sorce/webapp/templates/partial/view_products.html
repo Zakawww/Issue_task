@@ -1,66 +1,76 @@
-<table class="table fs-5">
-    <thead class="table-dark">
-    <th scope="col">Summary</th>
-    <th scope="col">Date</th>
-    <th scope="col">Status</th>
-    <th scope="col">Project</th>
-    <th scope="col">Type</th>
-    <th scope="col">Options</th>
-    </thead>
-    <tbody>
-    {% for issue in issues %}
-        <tr>
-            <th class="align-middle">
-                <a href="{% url 'webapp:detail' issue.pk %}" class="text-dark">{{ issue.summary }}</a>
-            </th>
-            <td class="align-middle">{{ issue.updated_date }}
-            </td>
-            <td class="align-middle">{{ issue.status }}</td>
-            <td class="align-middle">{{ issue.project }}</td>
+{% extends 'base.html' %}
+{% block title %}
+    Detail
+{% endblock %}
+{% block body %}
+    {% include "partial/search.html" %}
+    <table class="table fs-5">
+        <thead class="table-dark">
+        <th scope="col">Summary</th>
+        <th scope="col">Date</th>
+        <th scope="col">Status</th>
+        <th scope="col">Project</th>
+        <th scope="col">Type</th>
+        <th scope="col">Options</th>
+        </thead>
+        <tbody>
+        {% for issue in issues %}
+            <tr>
+                <th class="align-middle">
+                    <a href="{% url 'webapp:detail' issue.pk %}" class="text-dark">{{ issue.summary }}</a>
+                </th>
+                <td class="align-middle">{{ issue.updated_date }}
+                </td>
+                <td class="align-middle">{{ issue.status }}</td>
+                <td class="align-middle">{{ issue.project }}</td>
 
-            <td class="align-middle">
-                {% for type in issue.type.all %}{{ type.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
-            <td>
-                {% if request.user.is_authenticated %}
+                <td class="align-middle">
+                    {% for type in issue.type.all %}{{ type.name }}{% if not forloop.last %},
+                    {% endif %}{% endfor %}</td>
+                <td>
+                    {% if request.user.is_authenticated %}
 
-                    <a href="" class="font-weight-bold px-3 text-decoration-none" data-bs-toggle="modal"
-                       data-bs-target="#modal{{ issue.pk }}">
-                        <i class="fa-solid fa-trash"></i>
+                        <a href="" class="font-weight-bold px-3 text-decoration-none" data-bs-toggle="modal"
+                           data-bs-target="#modal{{ issue.pk }}">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                        <a href="{% url 'webapp:update' issue.pk %}"
+                           class=" font-weight-bold  px-3 text-decoration-none">
+                            <i class="fa-solid fa-file-pen"></i>
+                        </a>
+                    {% endif %}
+                    <a href="{% url 'webapp:detail' issue.pk %}" class=" font-weight-bold  px-3 text-decoration-none">
+                        <i class="fa-solid fa-circle-info"></i>
                     </a>
-                    <a href="{% url 'webapp:update' issue.pk %}" class=" font-weight-bold  px-3 text-decoration-none">
-                        <i class="fa-solid fa-file-pen"></i>
-                    </a>
-                {% endif %}
-                <a href="{% url 'webapp:detail' issue.pk %}" class=" font-weight-bold  px-3 text-decoration-none">
-                    <i class="fa-solid fa-circle-info"></i>
-                </a>
-            </td>
-        </tr>
-        <!-- Modal -->
-        <div class="modal fade" id="modal{{ issue.pk }}" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Delete Issue?</h5>
-                    </div>
-                    <div class="modal-body">
-                        <ul class="list-group">
-                            <li class="list-group-item">Summary: <b>{{ issue.summary }}</b></li>
-                            <li class="list-group-item">Status: <b>{{ issue.status }}</b></li>
-                        </ul>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
-                        <form action="{% url "webapp:delete" issue.pk %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-primary">Delete</button>
-                        </form>
+                </td>
+            </tr>
+            <!-- Modal -->
+            <div class="modal fade" id="modal{{ issue.pk }}" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Delete Issue?</h5>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">Summary: <b>{{ issue.summary }}</b></li>
+                                <li class="list-group-item">Status: <b>{{ issue.status }}</b></li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
+                            <form action="{% url "webapp:delete" issue.pk %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">Delete</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
-    </tbody>
-</table>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% include 'partial/pagination.html' %}
+{% endblock %}

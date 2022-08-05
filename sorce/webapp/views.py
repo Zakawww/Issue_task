@@ -9,14 +9,20 @@ from .models import Issue, Project
 from django.utils.http import urlencode
 
 
-class IndexView(ListView):
+class IndexViewIndex(ListView):
     model = Issue
     template_name = 'index.html'
+
+
+class IndexView(ListView):
+    model = Issue
+    template_name = 'partial/view_products.html'
     context_object_name = 'issues'
-    ordering = '-updated_date'
+    # ordering = '-updated_date'
     paginate_by = 3  # отображает 2 статьи
     paginate_orphans = 2  # отображает на последней страницы сколько будет статей
-    page_kwarg = "page"  # можно переопределить
+
+    # page_kwarg = "page"  # можно переопределить
 
     def get(self, request, *args, **kwargs):
         self.form = self.get_search_form()
