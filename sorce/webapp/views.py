@@ -14,7 +14,7 @@ class IndexView(ListView):
     template_name = 'index.html'
     context_object_name = 'issues'
     ordering = '-updated_date'
-    paginate_by = 5  # отображает 2 статьи
+    paginate_by = 3  # отображает 2 статьи
     paginate_orphans = 2  # отображает на последней страницы сколько будет статей
     page_kwarg = "page"  # можно переопределить
 
@@ -123,6 +123,10 @@ class ProjectView(ListView):
     model = Project
     template_name = 'project/project_list.html'
     context_object_name = 'projects'
+    ordering = '-create_date'
+    paginate_by = 3  # отображает 2 статьи
+    paginate_orphans = 2  # отображает на последней страницы сколько будет статей
+    page_kwarg = "page"  # можно переопределить
 
 
 class DetailProjectView(DetailView):
@@ -141,9 +145,6 @@ class UpdateProjectView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('webapp:detail_project', kwargs={'pk': self.object.pk})
-
-
-
 
 
 class DeleteProjectView(LoginRequiredMixin, DeleteView):
