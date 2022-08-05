@@ -14,6 +14,9 @@ class IndexViewIndex(ListView):
     template_name = 'index.html'
 
 
+
+
+
 class IndexView(ListView):
     model = Issue
     template_name = 'partial/view_products.html'
@@ -21,35 +24,34 @@ class IndexView(ListView):
     # ordering = '-updated_date'
     paginate_by = 3  # отображает 2 статьи
     paginate_orphans = 2  # отображает на последней страницы сколько будет статей
-
     # page_kwarg = "page"  # можно переопределить
 
-    def get(self, request, *args, **kwargs):
-        self.form = self.get_search_form()
-        self.search_value = self.get_search_value()
-        return super().get(request, *args, **kwargs)
-
-    def get_queryset(self):
-        if self.search_value:
-            return Issue.objects.filter(
-                Q(summary__icontains=self.search_value) | Q(description__icontains=self.search_value))
-        return Issue.objects.all()
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(object_list=object_list, **kwargs)
-        context['form'] = self.form
-        if self.search_value:
-            query = urlencode({'search': self.search_value})
-            context['query'] = query
-            context['search'] = self.search_value
-        return context
-
-    def get_search_form(self):
-        return SearchForm(self.request.GET)
-
-    def get_search_value(self):
-        if self.form.is_valid():
-            return self.form.cleaned_data.get('search')
+    # def get(self, request, *args, **kwargs):
+    #     self.form = self.get_search_form()
+    #     self.search_value = self.get_search_value()
+    #     return super().get(request, *args, **kwargs)
+    #
+    # def get_queryset(self):
+    #     if self.search_value:
+    #         return Issue.objects.filter(
+    #             Q(summary__icontains=self.search_value) | Q(description__icontains=self.search_value))
+    #     return Issue.objects.all()
+    #
+    # def get_context_data(self, *, object_list=None, **kwargs):
+    #     context = super().get_context_data(object_list=object_list, **kwargs)
+    #     context['form'] = self.form
+    #     if self.search_value:
+    #         query = urlencode({'search': self.search_value})
+    #         context['query'] = query
+    #         context['search'] = self.search_value
+    #     return context
+    #
+    # def get_search_form(self):
+    #     return SearchForm(self.request.GET)
+    #
+    # def get_search_value(self):
+    #     if self.form.is_valid():
+    #         return self.form.cleaned_data.get('search')
 
 
 class IssueDetailView(TemplateView):
