@@ -1,9 +1,7 @@
 {% csrf_token %}
-
 {% for error in form.non_field_errors %}
     <p class="text-danger">{{ error }}</p>
 {% endfor %}
-
 <div class="col6 offset-3">
     {% for field in form %}
         <div class="form-group row">

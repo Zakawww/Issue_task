@@ -1,8 +1,9 @@
+
 {% extends 'base.html' %}
-
-{% block title %}Регистрация{% endblock %}
+{% block title %}Create user{% endblock %}
 {% block body %}
-    <h1>Регистрация</h1>
-    {% include 'partial/form.html' with form_method='post' btn_text="Зарегистрироваться" %}
+    <h1 class="text-center mb-3">Add new user</h1>
+    <form action="" method="POST">
+        {% include 'partial/form.html' with form_method='POST' btn_text="Зарегистрироваться" %}
+    </form>
 {% endblock %}
-
