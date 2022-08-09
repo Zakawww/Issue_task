@@ -24,7 +24,6 @@ class ProjectForm(forms.ModelForm):
 
 
 class IssueProjectForm(forms.ModelForm):
-
     class Meta:
         model = Issue
         exclude = ['create_date', 'project', 'updated_date']
