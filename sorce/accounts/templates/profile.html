@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}Пользователь{% endblock %}
 {% block menu_links %}
-    <li><a class="dropdown-item"  href="#">Редактировать</a></li>
-    <li><a class="dropdown-item"  href="#">Смена пароля</a></li>
+    <li><a class="dropdown-item" href="#">Редактировать</a></li>
+    <li><a class="dropdown-item" href="#">Смена пароля</a></li>
 {% endblock %}
 
-{% block content  %}
+{% block content %}
     <h1>Личная страница пользователя {{ user_obj.get_full_name|default:user_obj.username }}</h1>
     {% if user_obj.profile.avatar %}
         <img class="avatar" src="{{ user_obj.profile.avatar.url }}" width="250" height="250" alt="user picture">
@@ -16,7 +16,11 @@
     <p>Дата рождения: {{ user_obj.profile.birth_date|date:'d.m.Y' }}</p>
     <p>Почта: {{ user_obj.email }}</p>
     <h2 class="text-center clear">Статьи автора:</h2>
-{#    {% include 'partial/view_products.html' %}#}
+
+
+
+
+    {#    {% include 'partial/view_products.html' %}#}
 {% endblock %}
 {% block body %}
     <table class="table fs-5">
@@ -59,6 +63,8 @@
                     </a>
                 </td>
             </tr>
+
+
             <!-- Modal -->
             <div class="modal fade" id="modal{{ issue.pk }}" tabindex="-1" role="dialog"
                  aria-labelledby="exampleModalLabel"

@@ -67,6 +67,7 @@ class IssueDetailView(TemplateView):
 
 class IssueDeleteView(PermissionRequiredMixin, DeleteView):
     model = Issue
+    permission_required = 'webapp.delete_issue'
     search_fields = ['name__icontains']
 
     def get_success_url(self):
@@ -88,6 +89,7 @@ class IssueUpdateView(PermissionRequiredMixin, UpdateView):
     template_name = "update.html"
     model = Issue
     context_object_name = 'issues'
+    permission_required = 'webapp.change_issue'
 
     def dispatch(self, request, *args, **kwargs):
         user = request.user
@@ -102,6 +104,8 @@ class IssueProjectCreateView(PermissionRequiredMixin, CreateView):
     model = Project
     template_name = 'create.html'
     form_class = IssueProjectForm
+    permission_required = 'webapp.add_issue_project'
+
 
     def form_valid(self, form):
         project_pk = self.kwargs.get('pk')
@@ -151,6 +155,7 @@ class UpdateProjectView(PermissionRequiredMixin, UpdateView):
     form_class = ProjectForm
     template_name = 'project/project_update.html'
     context_object_name = 'project'
+    permission_required = 'webapp.change_project'
 
     def has_permission(self):
         return self.request.user.has_perm('webapp.projects_list')
@@ -161,6 +166,7 @@ class UpdateProjectView(PermissionRequiredMixin, UpdateView):
 
 class DeleteProjectView(PermissionRequiredMixin, DeleteView):
     model = Project
+    permission_required = 'webapp.delete_project'
 
     def has_permission(self):
         return self.request.user.has_perm('webapp.projects_list')
@@ -168,33 +174,6 @@ class DeleteProjectView(PermissionRequiredMixin, DeleteView):
     def get_success_url(self):
         return reverse('webapp:project')
 
-
-# class AddUserInProject(PermissionRequiredMixin,UpdateView):
-#     model = Project
-#     template_name = 'for_project/adddeluser.html'
-#     form_class = UserForm
-#     context_object_name = 'project'
-#     permission_required = 'webapp.change_project'
-#
-#     def form_valid(self, form):
-#         # pk = self.kwargs.get('pk')
-#         # project= get_object_or_404(Project,pk = pk)
-#         project = form.save()
-#         user_id = self.request.POST.get('user')
-#         author=self.request.user.pk
-#         project.user.add(user_id,author)
-#         project.save()
-#         return redirect('webapp:DetailProjectView', pk=project.pk)
-
-# class AddProjectUsers(PermissionRequiredMixin, CreateView):
-#     template_name = 'project/add_project_users.html'
-#     model = Project
-#     form_class = AddProjectUsersForm
-#
-#     def has_permission(self):
-#         project = get_object_or_404(Project, pk=self.kwargs.get('pk'))
-#         return self.request.user.has_perm('webapp.add_project_users') and \
-#                self.request.user in project.users.all()
 
 class AddProjectUsers(PermissionRequiredMixin, UpdateView):
     template_name = 'project/add_project_users.html'
@@ -215,9 +194,12 @@ class AddProjectUsers(PermissionRequiredMixin, UpdateView):
         return redirect('webapp:detail_project', pk=project.pk)
 
 
-class DeleteProjectUser(PermissionRequiredMixin, View):
-    permission_required = 'webapp.delete_team'
+class DeleteProjectUser(PermissionRequiredMixin, DeleteView):
+    permission_required = 'webapp.delete_user'
     permission_denied_message = "Доступ запрещён"
+
+    def has_permission(self):
+        return super().has_permission() and self.request.user in self.get_object().users.all()
 
     def post(self, request, *args, **kwargs):
         project_id = kwargs.get('pk')
@@ -225,3 +207,14 @@ class DeleteProjectUser(PermissionRequiredMixin, View):
         team = User.objects.get(project=project_id, user=int(user_id), end_date__isnull=True)
         team.save()
         return redirect(reverse('webapp:project_detail', kwargs={'pk': project_id}))
+
+
+#
+# class DeleteProjectView(PermissionRequiredMixin, DeleteView):
+#     model = Project
+#
+#     def has_permission(self):
+#         return self.request.user.has_perm('webapp.projects_list')
+#
+#     def get_success_url(self):
+#         return reverse('webapp:project')
