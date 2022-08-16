@@ -15,5 +15,6 @@
         </div>
     {% endfor %}
     <a href="{% url 'webapp:index' %}" class="btn btn-success d-block mt-3 mx-auto w-25">Return to main page</a>
+    {% include 'partial/pagination.html' %}
 {% endblock %}
 

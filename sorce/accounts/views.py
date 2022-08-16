@@ -74,10 +74,10 @@ class ProfileList(LoginRequiredMixin, ListView):
     context_object_name = 'profiles'
     paginate_by = 4
     paginate_orphans = 0
+    permission_required = 'accounts.view_users'
 
-
-def has_permission(self):
-    return self.request.user.has_perm('accounts.view_user')
+    def has_permission(self):
+        return self.request.user.has_perm('accounts.view_user')
 
 # def register_view(request, *args, **kwargs):
 #     if request.method == 'POST':
