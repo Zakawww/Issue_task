@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.models import User
 from django.forms import widgets
 from webapp.models import Issue, Project
 
@@ -20,10 +21,20 @@ class SearchForm(forms.Form):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = '__all__'
+        fields = ['summary', 'description', 'create_date', 'end_date']
+        # fields = '__all__'
 
 
 class IssueProjectForm(forms.ModelForm):
     class Meta:
         model = Issue
         exclude = ['create_date', 'project', 'updated_date']
+
+
+class AddProjectUsersForm(forms.ModelForm):
+    users = forms.ModelMultipleChoiceField(queryset=User.objects.all(), required=False, label='Участники',
+                                           widget=forms.CheckboxSelectMultiple)
+
+    class Meta:
+        model = User
+        fields = ['users']

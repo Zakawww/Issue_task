@@ -1,3 +1,5 @@
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 
@@ -61,6 +63,8 @@ class Project(models.Model):
     description = models.TextField(max_length=400, null=True, blank=True, verbose_name='Описание')
     create_date = models.DateField(verbose_name='Дата создания')
     end_date = models.DateField(verbose_name='Дата окончания')
+    users = models.ManyToManyField(get_user_model(), default=1, related_name='users',
+                                  verbose_name='Пользователи')
 
     def __str__(self):
         return f"{self.summary}"

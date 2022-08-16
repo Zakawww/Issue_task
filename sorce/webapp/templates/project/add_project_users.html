@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Добавить участников в проект
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <h3>Добавить участников в проект {{ project.name }}</h3>
+        <div class="form-group" >
+            <form action="{% url 'webapp:add_project_users' project.pk %}" method="POST" id="add_todo">
+                {% include 'partial/form.html' with btn_text='Добавить' %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

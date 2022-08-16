@@ -1,10 +1,12 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.models import User
+from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import TemplateView, View, FormView, ListView, CreateView, DetailView, DeleteView, UpdateView
 
-from .forms import SearchForm, IssueForm, ProjectForm, IssueProjectForm
+from .forms import SearchForm, IssueForm, ProjectForm, IssueProjectForm, AddProjectUsersForm
 from .models import Issue, Project
 from django.utils.http import urlencode
 
@@ -24,32 +26,32 @@ class IndexView(ListView):
     paginate_orphans = 2  # отображает на последней страницы сколько будет статей
     # page_kwarg = "page"  # можно переопределить
 
-    def get(self, request, *args, **kwargs):
-        self.form = self.get_search_form()
-        self.search_value = self.get_search_value()
-        return super().get(request, *args, **kwargs)
-
-    def get_queryset(self):
-        if self.search_value:
-            return Issue.objects.filter(
-                Q(summary__icontains=self.search_value) | Q(description__icontains=self.search_value))
-        return Issue.objects.all()
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(object_list=object_list, **kwargs)
-        context['form'] = self.form
-        if self.search_value:
-            query = urlencode({'search': self.search_value})
-            context['query'] = query
-            context['search'] = self.search_value
-        return context
-
-    def get_search_form(self):
-        return SearchForm(self.request.GET)
-
-    def get_search_value(self):
-        if self.form.is_valid():
-            return self.form.cleaned_data.get('search')
+    # def get(self, request, *args, **kwargs):
+    #     self.form = self.get_search_form()
+    #     self.search_value = self.get_search_value()
+    #     return super().get(request, *args, **kwargs)
+    #
+    # def get_queryset(self):
+    #     if self.search_value:
+    #         return Issue.objects.filter(
+    #             Q(summary__icontains=self.search_value) | Q(description__icontains=self.search_value))
+    #     return Issue.objects.all()
+    #
+    # def get_context_data(self, *, object_list=None, **kwargs):
+    #     context = super().get_context_data(object_list=object_list, **kwargs)
+    #     context['form'] = self.form
+    #     if self.search_value:
+    #         query = urlencode({'search': self.search_value})
+    #         context['query'] = query
+    #         context['search'] = self.search_value
+    #     return context
+    #
+    # def get_search_form(self):
+    #     return SearchForm(self.request.GET)
+    #
+    # def get_search_value(self):
+    #     if self.form.is_valid():
+    #         return self.form.cleaned_data.get('search')
 
 
 class IssueDetailView(TemplateView):
@@ -63,7 +65,7 @@ class IssueDetailView(TemplateView):
         return context
 
 
-class IssueDeleteView(DeleteView):
+class IssueDeleteView(PermissionRequiredMixin, DeleteView):
     model = Issue
     search_fields = ['name__icontains']
 
@@ -71,23 +73,32 @@ class IssueDeleteView(DeleteView):
         return reverse('webapp:index')
 
 
-class IssueCreateView(LoginRequiredMixin, CreateView):
+class IssueCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'create.html'
     model = Issue
     form_class = IssueForm
+    permission_required = 'webapp.add_issue'
 
     # def get_success_url(self):
     #     return reverse('webapp:detail', kwargs={'pk': self.object.pk})
 
 
-class IssueUpdateView(LoginRequiredMixin, UpdateView):
+class IssueUpdateView(PermissionRequiredMixin, UpdateView):
     form_class = IssueForm
     template_name = "update.html"
     model = Issue
     context_object_name = 'issues'
 
+    def dispatch(self, request, *args, **kwargs):
+        user = request.user
+        if not user.is_authenticated:
+            return redirect('index')
+        if not user.has_perm('webapp.update'):
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
 
-class IssueProjectCreateView(LoginRequiredMixin, CreateView):
+
+class IssueProjectCreateView(PermissionRequiredMixin, CreateView):
     model = Project
     template_name = 'create.html'
     form_class = IssueProjectForm
@@ -101,13 +112,19 @@ class IssueProjectCreateView(LoginRequiredMixin, CreateView):
         return redirect('webapp:detail_project', pk=project_pk)
 
 
-class CreateProjectView(LoginRequiredMixin, CreateView):
+class CreateProjectView(PermissionRequiredMixin, CreateView):
     model = Project
     template_name = 'project/create_project.html'
     form_class = ProjectForm
+    permission_required = 'webapp.add_project'
 
-    def get_success_url(self):
-        return reverse('webapp:detail_project', kwargs={'pk': self.object.pk})
+    def form_valid(self, form):
+        project = form.save()
+        project.users.add(self.request.user)
+        project.save()
+        return redirect('webapp:detail_project', pk=project.pk)
+
+
 
 
 class ProjectView(ListView):
@@ -121,27 +138,90 @@ class ProjectView(ListView):
 
 
 class DetailProjectView(DetailView):
-    model = Project
     template_name = 'project/project_detail.html'
+    model = Project
+    context_key = 'project'
 
     def get_queryset(self):
         return Project.objects.all()
 
 
-class UpdateProjectView(LoginRequiredMixin, UpdateView):
+class UpdateProjectView(PermissionRequiredMixin, UpdateView):
     model = Project
     form_class = ProjectForm
     template_name = 'project/project_update.html'
     context_object_name = 'project'
 
-    def get_success_url(self):
-        return reverse('webapp:detail_project', kwargs={'pk': self.object.pk})
+    def has_permission(self):
+        return self.request.user.has_perm('webapp.projects_list')
+
+    # def get_success_url(self):
+    #     return reverse('webapp:detail_project', kwargs={'pk': self.object.pk})
 
 
-class DeleteProjectView(LoginRequiredMixin, DeleteView):
+class DeleteProjectView(PermissionRequiredMixin, DeleteView):
     model = Project
+
+    def has_permission(self):
+        return self.request.user.has_perm('webapp.projects_list')
 
     def get_success_url(self):
         return reverse('webapp:project')
 
 
+# class AddUserInProject(PermissionRequiredMixin,UpdateView):
+#     model = Project
+#     template_name = 'for_project/adddeluser.html'
+#     form_class = UserForm
+#     context_object_name = 'project'
+#     permission_required = 'webapp.change_project'
+#
+#     def form_valid(self, form):
+#         # pk = self.kwargs.get('pk')
+#         # project= get_object_or_404(Project,pk = pk)
+#         project = form.save()
+#         user_id = self.request.POST.get('user')
+#         author=self.request.user.pk
+#         project.user.add(user_id,author)
+#         project.save()
+#         return redirect('webapp:DetailProjectView', pk=project.pk)
+
+# class AddProjectUsers(PermissionRequiredMixin, CreateView):
+#     template_name = 'project/add_project_users.html'
+#     model = Project
+#     form_class = AddProjectUsersForm
+#
+#     def has_permission(self):
+#         project = get_object_or_404(Project, pk=self.kwargs.get('pk'))
+#         return self.request.user.has_perm('webapp.add_project_users') and \
+#                self.request.user in project.users.all()
+
+class AddProjectUsers(PermissionRequiredMixin, UpdateView):
+    template_name = 'project/add_project_users.html'
+    model = Project
+    form_class = AddProjectUsersForm
+    permission_required = 'webapp.add_project'
+    permission_denied_message = "Доступ запрещён"
+
+    def has_permission(self):
+        return super().has_permission() and self.request.user in self.get_object().users.all()
+
+    def form_valid(self, form):
+        project = form.save()
+        user_id = self.request.POST.get('user')
+        user = self.request.user.pk
+        project.users.add(user_id, user)
+        project.save()
+        return redirect('webapp:detail_project', pk=project.pk)
+
+
+class DeleteProjectUser(PermissionRequiredMixin, View):
+    permission_required = 'webapp.delete_team'
+    permission_denied_message = "Доступ запрещён"
+
+    def post(self, request, *args, **kwargs):
+        project_id = kwargs.get('pk')
+        user_id = request.POST.get('user')
+        team = User.objects.get(project=project_id, user=int(user_id), end_date__isnull=True)
+        team.save()
+        return redirect(reverse('webapp:project_detail', kwargs={'pk': project_id}))
