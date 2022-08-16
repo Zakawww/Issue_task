@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, ListView
 
 from accounts.forms import MyUserCreationForm
 from accounts.models import Profile
@@ -68,10 +68,16 @@ class ProfileView(LoginRequiredMixin, DetailView):
         return super().get_context_data(**kwargs)
 
 
+class ProfileList(LoginRequiredMixin, ListView):
+    model = Profile
+    template_name = 'users.html'
+    context_object_name = 'profiles'
+    paginate_by = 4
+    paginate_orphans = 0
 
 
-
-
+def has_permission(self):
+    return self.request.user.has_perm('accounts.view_user')
 
 # def register_view(request, *args, **kwargs):
 #     if request.method == 'POST':

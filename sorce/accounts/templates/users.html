@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}
+    Detail
+{% endblock %}
+{% block body %}
+    {% for user in profiles %}
+        <div class="card">
+            <div class="card-body">
+                <a href="{% url 'accounts:detail_user' user.pk %}"
+                   class=" font-weight-bold  px-3 text-decoration-none">
+                    <p class="mb-1">{{ user.user }}</p>
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+    <a href="{% url 'webapp:index' %}" class="btn btn-success d-block mt-3 mx-auto w-25">Return to main page</a>
+{% endblock %}
+

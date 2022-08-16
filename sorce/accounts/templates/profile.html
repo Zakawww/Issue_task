@@ -32,12 +32,10 @@
         <th scope="col">Options</th>
         </thead>
         <tbody>
-{#        {% if user.is_authenticated %}#}
-            {#    <form action="{% url 'webapp:create_project' %}">#}
-            {#        <button type="submit" class="btn btn-success mt-3 col-4 offset-4">Добавить проект</button>#}
-            {#    </form>#}
-
-
+        {% if user.is_authenticated %}
+            <form action="{% url 'webapp:create_project' %}">
+                <button type="submit" class="btn btn-success mt-3 col-4 offset-4">Добавить проект</button>
+            </form>
             {% for project in projects %}
                 <tr>
                 <th class="align-middle">
@@ -88,7 +86,7 @@
                     </div>
                 </div>
             {% endfor %}
-{#        {% endif %}#}
+        {% endif %}
         </tbody>
     </table>
     {% include 'partial/pagination.html' %}

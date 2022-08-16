@@ -45,6 +45,8 @@
                     </ul>
                 </li>
                 <li class="nav-item">
+                <li class="menu-right"><a href="{% url 'accounts:users_list' %}?next={{ request.get_full_path }}"
+                                                  class="nav-link">Users</a></li>
                     {% if request.user.is_authenticated %}
 
                         <li class="menu-right"><a href="{% url 'accounts:logout' %}" class="nav-link">Выход</a></li>
@@ -55,6 +57,9 @@
                                                   class="nav-link">Вход</a></li>
                         <li class="menu-right"><a href="{% url 'accounts:create' %}?next={{ request.get_full_path }}"
                                                   class="nav-link">Регистрация</a></li>
+
+
+
                         {#                        <li class="menu-right"><a href="{% url 'accounts:login' %}?next={{ request.get_full_path }}" class="nav-link">Вход</a></li>#}
                     {% endif %}
                 </li>
