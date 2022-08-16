@@ -25,6 +25,7 @@ class IndexView(ListView):
     paginate_by = 3  # отображает 2 статьи
     paginate_orphans = 2  # отображает на последней страницы сколько будет статей
     # page_kwarg = "page"  # можно переопределить
+    permission_required = 'webapp.view_issue'
 
     # def get(self, request, *args, **kwargs):
     #     self.form = self.get_search_form()
@@ -56,6 +57,7 @@ class IndexView(ListView):
 
 class IssueDetailView(TemplateView):
     template_name = 'detail.html'
+    permission_required = 'webapp.view_issue'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -67,8 +69,8 @@ class IssueDetailView(TemplateView):
 
 class IssueDeleteView(PermissionRequiredMixin, DeleteView):
     model = Issue
-    permission_required = 'webapp.delete_issue'
     search_fields = ['name__icontains']
+    permission_required = 'webapp.delete_issue'
 
     def get_success_url(self):
         return reverse('webapp:index')
@@ -145,6 +147,7 @@ class DetailProjectView(DetailView):
     template_name = 'project/project_detail.html'
     model = Project
     context_key = 'project'
+    permission_required = 'webapp.view_project'
 
     def get_queryset(self):
         return Project.objects.all()
@@ -200,21 +203,3 @@ class DeleteProjectUser(PermissionRequiredMixin, DeleteView):
 
     def has_permission(self):
         return super().has_permission() and self.request.user in self.get_object().users.all()
-
-    def post(self, request, *args, **kwargs):
-        project_id = kwargs.get('pk')
-        user_id = request.POST.get('user')
-        team = User.objects.get(project=project_id, user=int(user_id), end_date__isnull=True)
-        team.save()
-        return redirect(reverse('webapp:project_detail', kwargs={'pk': project_id}))
-
-
-#
-# class DeleteProjectView(PermissionRequiredMixin, DeleteView):
-#     model = Project
-#
-#     def has_permission(self):
-#         return self.request.user.has_perm('webapp.projects_list')
-#
-#     def get_success_url(self):
-#         return reverse('webapp:project')

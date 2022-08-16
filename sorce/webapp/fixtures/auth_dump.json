@@ -109,7 +109,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$320000$0gKhb7q8E8KJPmKzAvYVzw$7ozFGfnfxuJsCoqIAfteEKSseJvKcUNwUEeH7gL4T90=",
-    "last_login": "2022-08-12T08:22:27.016Z",
+    "last_login": "2022-08-16T09:02:04.199Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -181,7 +181,7 @@
   "pk": 15,
   "fields": {
     "password": "pbkdf2_sha256$320000$EknRcPJZPssYUrQIDuGxLV$QRpsDXDenDCJIeTItd1fKMljAWDF4kmHnk42Y3Hjals=",
-    "last_login": "2022-08-12T06:48:24.150Z",
+    "last_login": "2022-08-15T12:37:42.784Z",
     "is_superuser": false,
     "username": "zakir",
     "first_name": "Zakir",
@@ -199,12 +199,12 @@
   "pk": 16,
   "fields": {
     "password": "pbkdf2_sha256$320000$zA6EMHNpFyIQHP36PbwXhe$0sqQypREnus4R9HEFgrbD7iQEow7MKSIv6NjcQ7SDc8=",
-    "last_login": "2022-08-12T08:53:07.843Z",
+    "last_login": "2022-08-16T09:02:32.488Z",
     "is_superuser": false,
     "username": "manager",
-    "first_name": "",
-    "last_name": "",
-    "email": "",
+    "first_name": "manager",
+    "last_name": "managerovich",
+    "email": "zaka_333@mail.ru",
     "is_staff": false,
     "is_active": true,
     "date_joined": "2022-08-12T08:31:27Z",
@@ -221,12 +221,12 @@
   "pk": 17,
   "fields": {
     "password": "pbkdf2_sha256$320000$MQp9x0mtzWyJuVHym3TSvO$G6ajh5RWJrqCFAAZCUaV/GMk9C8oMmbLV+ZMRFd1aws=",
-    "last_login": null,
+    "last_login": "2022-08-15T19:14:46Z",
     "is_superuser": false,
     "username": "lead",
-    "first_name": "",
-    "last_name": "",
-    "email": "",
+    "first_name": "test",
+    "last_name": "testovich",
+    "email": "zaka_333@mail.ru",
     "is_staff": false,
     "is_active": true,
     "date_joined": "2022-08-12T08:31:41Z",
@@ -243,7 +243,7 @@
   "pk": 18,
   "fields": {
     "password": "pbkdf2_sha256$320000$1uSgGvuXW9e4gzZ2Frh3VC$NV3nChV2xVpO8ogDqBZyigIvungpKj8/3ucKJZSQWy0=",
-    "last_login": "2022-08-12T08:36:25.732Z",
+    "last_login": "2022-08-15T19:12:42.338Z",
     "is_superuser": false,
     "username": "dev",
     "first_name": "",
@@ -257,6 +257,24 @@
         "Team Lead"
       ]
     ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 19,
+  "fields": {
+    "password": "",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-08-15T17:46:24.162Z",
+    "groups": [],
     "user_permissions": []
   }
 }

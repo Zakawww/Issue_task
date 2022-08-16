@@ -150,21 +150,6 @@
   }
 },
 {
-  "model": "webapp.issue",
-  "pk": 17,
-  "fields": {
-    "create_date": "2022-08-12T09:01:18.170Z",
-    "updated_date": "2022-08-12T09:01:18.170Z",
-    "summary": "wq",
-    "description": "qwqwqwqwqqwqw",
-    "status": 1,
-    "project": 1,
-    "type": [
-      1
-    ]
-  }
-},
-{
   "model": "webapp.status",
   "pk": 1,
   "fields": {
@@ -214,7 +199,13 @@
     "description": "test_project1\r\nnew",
     "create_date": "2022-07-26",
     "end_date": "2022-07-28",
-    "users": []
+    "users": [
+      1,
+      4,
+      15,
+      16,
+      18
+    ]
   }
 },
 {
@@ -435,6 +426,284 @@
     "create_date": "2022-07-03",
     "end_date": "2023-10-17",
     "users": []
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 23,
+  "fields": {
+    "summary": "xaxa",
+    "description": "xaxaxa",
+    "create_date": "2022-07-03",
+    "end_date": "2021-10-17",
+    "users": [
+      4
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 24,
+  "fields": {
+    "summary": "xaxa",
+    "description": "xaxaxa",
+    "create_date": "2022-07-03",
+    "end_date": "2021-10-17",
+    "users": [
+      4
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 25,
+  "fields": {
+    "summary": "xaxa",
+    "description": "xaxaxa",
+    "create_date": "2022-07-03",
+    "end_date": "2021-10-17",
+    "users": [
+      4
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 26,
+  "fields": {
+    "summary": "xaxa",
+    "description": "xaxaxa",
+    "create_date": "2022-07-03",
+    "end_date": "2021-10-17",
+    "users": [
+      4
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 27,
+  "fields": {
+    "summary": "xaxa",
+    "description": "xaxaxa",
+    "create_date": "2022-07-03",
+    "end_date": "2021-10-17",
+    "users": [
+      4
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 28,
+  "fields": {
+    "summary": "xaxa",
+    "description": "xaxaxa",
+    "create_date": "2022-07-03",
+    "end_date": "2021-10-17",
+    "users": [
+      4
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 29,
+  "fields": {
+    "summary": "xaxa",
+    "description": "xaxaxa",
+    "create_date": "2022-07-03",
+    "end_date": "2021-10-17",
+    "users": [
+      4
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 30,
+  "fields": {
+    "summary": "xaxa",
+    "description": "xaxaxa",
+    "create_date": "2022-07-03",
+    "end_date": "2021-10-17",
+    "users": [
+      4
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 31,
+  "fields": {
+    "summary": "dq",
+    "description": "qdqdqd",
+    "create_date": "2022-07-03",
+    "end_date": "2021-10-17",
+    "users": [
+      6
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 32,
+  "fields": {
+    "summary": "dq",
+    "description": "qdqdqd",
+    "create_date": "2022-07-03",
+    "end_date": "2021-10-17",
+    "users": [
+      6
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 33,
+  "fields": {
+    "summary": "dq",
+    "description": "qdqdqd",
+    "create_date": "2022-07-03",
+    "end_date": "2021-10-17",
+    "users": [
+      6
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 34,
+  "fields": {
+    "summary": "xaxa",
+    "description": "xaaxax",
+    "create_date": "2021-07-03",
+    "end_date": "2023-10-17",
+    "users": [
+      17
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 35,
+  "fields": {
+    "summary": "axxx",
+    "description": "xaxaxax",
+    "create_date": "2022-07-03",
+    "end_date": "2023-10-17",
+    "users": [
+      4
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 36,
+  "fields": {
+    "summary": "sqsq",
+    "description": "qsqqqqq",
+    "create_date": "2022-07-03",
+    "end_date": "2023-10-17",
+    "users": [
+      18
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 37,
+  "fields": {
+    "summary": "sqsq",
+    "description": "qsqqqqq",
+    "create_date": "2022-07-03",
+    "end_date": "2023-10-17",
+    "users": [
+      18
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 38,
+  "fields": {
+    "summary": "sqsq",
+    "description": "qsqqqqq",
+    "create_date": "2022-07-03",
+    "end_date": "2023-10-17",
+    "users": [
+      18
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 39,
+  "fields": {
+    "summary": "aasas",
+    "description": "asasas",
+    "create_date": "2022-07-03",
+    "end_date": "2023-10-17",
+    "users": [
+      4
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 40,
+  "fields": {
+    "summary": "xaaxax",
+    "description": "axaaaaaaaaa",
+    "create_date": "2022-07-03",
+    "end_date": "2023-10-17",
+    "users": []
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 41,
+  "fields": {
+    "summary": "axaxa",
+    "description": "aaaaaaaaaaaaa",
+    "create_date": "2022-07-03",
+    "end_date": "2023-10-17",
+    "users": []
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 42,
+  "fields": {
+    "summary": "wwwwww",
+    "description": "qqqqqqqqaasdasdas",
+    "create_date": "2021-07-03",
+    "end_date": "2023-10-17",
+    "users": []
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 43,
+  "fields": {
+    "summary": "fhgfhj",
+    "description": "vgdzvdsvdsvdsvds",
+    "create_date": "2022-07-03",
+    "end_date": "2023-10-17",
+    "users": []
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 44,
+  "fields": {
+    "summary": "edwqdq",
+    "description": "qwdqwd",
+    "create_date": "2022-07-03",
+    "end_date": "2021-10-17",
+    "users": [
+      16
+    ]
   }
 }
 ]

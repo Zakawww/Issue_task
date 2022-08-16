@@ -49,7 +49,7 @@
 
                         <li class="menu-right"><a href="{% url 'accounts:logout' %}" class="nav-link">Выход</a></li>
                         <li class="menu-right my-2">Привет, {{ user.username }}!</li>
-                        <li class="dropdown-item"><a href="{% url 'accounts:detail_user' user.pk %}">Профиль</a></li>
+                        <li class="dropdown-item"><a href="{% url 'accounts:detail_user' user.pk %}">{{ user.username }}</a></li>
                     {% else %}
                         <li class="menu-right"><a href="{% url 'accounts:login' %}?next={{ request.get_full_path }}"
                                                   class="nav-link">Вход</a></li>
