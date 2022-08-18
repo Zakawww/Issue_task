@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}Пользователь{% endblock %}
 {% block menu_links %}
-    <li><a class="dropdown-item" href="#">Редактировать</a></li>
-    <li><a class="dropdown-item" href="#">Смена пароля</a></li>
+    <li><a href="{% url 'accounts:change_profile' user_obj.pk %}">Редактировать</a></li>
+    <li><a class="dropdown-item" href="{% url "accounts:password_change" user_obj.pk %}">Смена пароля</a></li>
 {% endblock %}
 
 {% block content %}

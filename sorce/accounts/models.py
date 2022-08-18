@@ -10,3 +10,5 @@ class Profile(models.Model):
     about_user = models.TextField(max_length=1000, null=True, blank=True, verbose_name='О себе')
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, verbose_name='Пользователь',
                                 related_name='profile')
+
+

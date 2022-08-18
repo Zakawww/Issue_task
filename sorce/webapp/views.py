@@ -6,7 +6,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import TemplateView, View, FormView, ListView, CreateView, DetailView, DeleteView, UpdateView
 
-from .forms import SearchForm, IssueForm, ProjectForm, IssueProjectForm, AddProjectUsersForm
+from accounts.forms import AddProjectUsersForm
+from .forms import SearchForm, IssueForm, ProjectForm, IssueProjectForm
 from .models import Issue, Project
 from django.utils.http import urlencode
 
@@ -119,25 +120,33 @@ class IssueProjectCreateView(PermissionRequiredMixin, CreateView):
 
 
 class CreateProjectView(PermissionRequiredMixin, CreateView):
-    model = Project
+    # model = Project
     template_name = 'project/create_project.html'
     form_class = ProjectForm
     permission_required = 'webapp.add_project'
 
+
     def form_valid(self, form):
-        project = form.save()
-        project.users.add(self.request.user)
-        project.save()
-        return redirect('webapp:detail_project', pk=project.pk)
+        response = super().form_valid(form)
+        self.object = form.save()
+        self.object.users.add(self.request.user)
+        return response
 
-
+    def get_success_url(self):
+        return reverse('webapp:project')
+    #
+    # def form_valid(self, form):
+    #     project = form.save()
+    #     project.users.add(self.request.user)
+    #     project.save()
+    #     return redirect('webapp:detail_project', pk=project.pk)
 
 
 class ProjectView(ListView):
     model = Project
     template_name = 'project/project_list.html'
     context_object_name = 'projects'
-    ordering = '-create_date'
+    ordering = '-summary'
     paginate_by = 3  # отображает 2 статьи
     paginate_orphans = 2  # отображает на последней страницы сколько будет статей
     page_kwarg = "page"  # можно переопределить

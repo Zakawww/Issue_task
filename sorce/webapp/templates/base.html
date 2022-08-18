@@ -31,7 +31,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Add
+                        Options
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         {% if request.user.is_authenticated %}
@@ -64,7 +64,7 @@
                     {% endif %}
                 </li>
             </ul>
-            {% include 'partial/search.html' with btn_text='Search' %}
+            {% include 'partial/search.html' with button_text='Search' %}
         </div>
     </div>
 </nav>

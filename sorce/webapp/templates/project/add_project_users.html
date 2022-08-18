@@ -8,7 +8,7 @@
         <h3>Добавить участников в проект {{ project.name }}</h3>
         <div class="form-group" >
             <form action="{% url 'webapp:add_project_users' project.pk %}" method="POST" id="add_todo">
-                {% include 'partial/form.html' with btn_text='Добавить' %}
+                {% include 'partial/form.html' with button_text='Добавить' %}
             </form>
         </div>
     </div>

@@ -1,4 +1,9 @@
-{% csrf_token %}
+{% if not fields_only %}
+    <form action="{{ action_url }}" method="{{ form_method }}" enctype="{{ enctype }}">
+    {% csrf_token %}
+{% endif %}
+
+
 {% for error in form.non_field_errors %}
     <p class="text-danger">{{ error }}</p>
 {% endfor %}
@@ -20,9 +25,26 @@
     {% endfor %}
     <div class="offset-3 ">
         <div>
-            <button class="btn btn-primary mb-3" type="submit">{{ btn_text }}</button>
+            <button class="btn btn-primary mb-3" type="submit">{{ button_text|default:"Submit" }}</button>
         </div>
         <a href="{% url 'webapp:index' %}" class="btn btn-primary">Cancel</a>
     </div>
     <br>
 </div>
+
+
+{#{% if not fields_only %}#}
+{#    <form action="{{ action_url }}" method="{{ form_method }}" enctype="{{ enctype }}">#}
+{#    {% csrf_token %}#}
+{#{% endif %}#}
+{#{% for error in form.non_field_errors %}#}
+{#    <p class="error">{{ error }}</p>#}
+{#{% endfor %}#}
+{#{% for field in form %}#}
+{#    {% include 'partial/form.html' %}#}
+{#{% endfor %}#}
+{#{% if not fields_only %}#}
+{#    <br/>#}
+{#    <input type="submit" value="{{ button_text|default:"Submit" }}"/>#}
+{#    </form>#}
+{#{% endif %}#}

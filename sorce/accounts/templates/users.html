@@ -11,9 +11,12 @@
                    class=" font-weight-bold  px-3 text-decoration-none">
                     <p class="mb-1">{{ user.user }}</p>
                 </a>
+                <a href="{% url "accounts:password_change" user.pk %}">Смена пароля</a>
             </div>
+
         </div>
     {% endfor %}
+
     <a href="{% url 'webapp:index' %}" class="btn btn-success d-block mt-3 mx-auto w-25">Return to main page</a>
     {% include 'partial/pagination.html' %}
 {% endblock %}
