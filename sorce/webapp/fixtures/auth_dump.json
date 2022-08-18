@@ -93,7 +93,58 @@
   "pk": 2,
   "fields": {
     "name": "Team Lead",
-    "permissions": []
+    "permissions": [
+      [
+        "add_user",
+        "auth",
+        "user"
+      ],
+      [
+        "change_user",
+        "auth",
+        "user"
+      ],
+      [
+        "delete_user",
+        "auth",
+        "user"
+      ],
+      [
+        "view_user",
+        "auth",
+        "user"
+      ],
+      [
+        "add_issue",
+        "webapp",
+        "issue"
+      ],
+      [
+        "change_issue",
+        "webapp",
+        "issue"
+      ],
+      [
+        "delete_issue",
+        "webapp",
+        "issue"
+      ],
+      [
+        "view_issue",
+        "webapp",
+        "issue"
+      ],
+      [
+        "view_project",
+        "webapp",
+        "project"
+      ],
+      [
+        "change_status",
+        "webapp",
+        "status"
+      ]
+    ]
   }
 },
 {
@@ -101,7 +152,33 @@
   "pk": 3,
   "fields": {
     "name": "Developer",
-    "permissions": []
+    "permissions": [
+      [
+        "add_issue",
+        "webapp",
+        "issue"
+      ],
+      [
+        "change_issue",
+        "webapp",
+        "issue"
+      ],
+      [
+        "delete_issue",
+        "webapp",
+        "issue"
+      ],
+      [
+        "view_issue",
+        "webapp",
+        "issue"
+      ],
+      [
+        "view_project",
+        "webapp",
+        "project"
+      ]
+    ]
   }
 },
 {
@@ -109,7 +186,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$320000$0gKhb7q8E8KJPmKzAvYVzw$7ozFGfnfxuJsCoqIAfteEKSseJvKcUNwUEeH7gL4T90=",
-    "last_login": "2022-08-16T09:02:04.199Z",
+    "last_login": "2022-08-18T04:59:12.875Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -199,7 +276,7 @@
   "pk": 16,
   "fields": {
     "password": "pbkdf2_sha256$320000$zA6EMHNpFyIQHP36PbwXhe$0sqQypREnus4R9HEFgrbD7iQEow7MKSIv6NjcQ7SDc8=",
-    "last_login": "2022-08-16T09:02:32.488Z",
+    "last_login": "2022-08-17T12:54:20.828Z",
     "is_superuser": false,
     "username": "manager",
     "first_name": "manager",
@@ -243,7 +320,7 @@
   "pk": 18,
   "fields": {
     "password": "pbkdf2_sha256$320000$1uSgGvuXW9e4gzZ2Frh3VC$NV3nChV2xVpO8ogDqBZyigIvungpKj8/3ucKJZSQWy0=",
-    "last_login": "2022-08-15T19:12:42.338Z",
+    "last_login": "2022-08-16T12:54:51.319Z",
     "is_superuser": false,
     "username": "dev",
     "first_name": "",
@@ -262,18 +339,18 @@
 },
 {
   "model": "auth.user",
-  "pk": 19,
+  "pk": 20,
   "fields": {
-    "password": "",
-    "last_login": null,
+    "password": "pbkdf2_sha256$320000$UiKYuEfqJmAMnsHaNvzf2C$e9rCPf1TOQOrRVBAAZCLAhuRYWUt5HziXPFbwmoYPI4=",
+    "last_login": "2022-08-18T04:44:37.712Z",
     "is_superuser": false,
-    "username": "",
-    "first_name": "",
+    "username": "azamat",
+    "first_name": "Aza",
     "last_name": "",
-    "email": "",
+    "email": "azammmmm_333@mail.ru",
     "is_staff": false,
     "is_active": true,
-    "date_joined": "2022-08-15T17:46:24.162Z",
+    "date_joined": "2022-08-18T04:43:00.142Z",
     "groups": [],
     "user_permissions": []
   }
